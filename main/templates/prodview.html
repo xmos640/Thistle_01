@@ -4,7 +4,8 @@
 {% block css %}
 {% endblock %}
 {% block body %}
-
+<input type="hidden" value="pr{{product.product_id}}" id="prid">
+<input type="hidden" id="img" value="{{photos.0.images.url}}">
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="w-full px-5 py-7 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap items-center">
@@ -25,7 +26,7 @@
 
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <h2 class="text-sm title-font text-gray-500 tracking-widest" id="redirect">Thistle</h2>
-          <h1 class="text-gray-900 text-3xl title-font font-medium mb-1" id="pr_name">{{product.product_name}}</h1>
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-1" id="name">{{product.product_name}}</h1>
           <div class="flex mb-4">
             <span class="flex items-center">
               <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
@@ -64,7 +65,7 @@
           </div>
           <div class="flex">
             <span class="title-font font-medium text-2xl text-gray-900" > &#8377<span id="price">{{product.mrp}}</span></span>
-            <button id="cart" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button>
+            <span id="atc"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
             
           </div>
 
@@ -109,6 +110,7 @@
       
 {% endblock %}
 {% block js %}
+<script>
 const slides=document.querySelectorAll(".slide");
 const slider=document.querySelector(".slider");
 let c=0;
@@ -145,6 +147,102 @@ function favorite(){
   }else{fav.classList.remove("text-red-700")}
   
 }
+
+// Adding cart items  ---------
+// ================================================================
+// ================================================================
+
+
+if (localStorage.getItem('thistle_cart') == null) {
+    var thistle_cart = {};
+} else {
+    thistle_cart = JSON.parse(localStorage.getItem('thistle_cart'));
+    
+    console.log(thistle_cart);
+    updateCart(thistle_cart);
+}
+// If the add to cart button is clicked, add/increment the item
+$('.cart').click(function() {
+    console.log('clicked');
+    var idstr = document.getElementById('prid').value;
+    console.log(idstr);
+    console.log(thistle_cart);
+
+
+
+
+    if (thistle_cart[idstr] != undefined) {
+        qty = thistle_cart[idstr][0]+1;
+
+
+    } else {
+        qty = 1;
+
+        name = document.getElementById('name').innerHTML;
+        price = document.getElementById('price').innerHTML;
+        img = document.getElementById('img').value;
+        thistle_cart[idstr] = [qty,name,parseInt(price),img,idstr.slice(2)];
+    }
+    updateCart(thistle_cart);
+});
+
+
+function updateCart(thistle_cart) {
+    var sum = 0;
+    for (var item in thistle_cart) {
+
+            sum = sum+thistle_cart[item][0];
+
+        }
+    var idstr = document.getElementById('prid').value;
+    if (thistle_cart[idstr] !== null){
+    if (thistle_cart[idstr][0]!==0){
+                console.log(item)
+            document.getElementById('atc').innerHTML = "<div class='mt-5  cart'><button id='minus' class=' minus mx-2 my-btns'>-</button> <span id='val'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus my-btns' style='margin-right:1rem; margin-left:0.5rem;'  > + </button> </div>";
+            }
+            else {
+                delete thistle_cart[item];
+
+
+            }
+}
+
+
+
+    localStorage.setItem('thistle_cart', JSON.stringify(thistle_cart));
+   // document.getElementById('cart').innerHTML = sum;
+
+    console.log(thistle_cart);
+}
+
+
+// If plus or minus button is clicked, change the cart as well as the display value
+$('.divpr').on("click", "button.minus", function() {
+    var idstr = document.getElementById('prid').value;
+    console.log(thistle_cart)
+    thistle_cart[idstr][0] = thistle_cart[idstr][0] - 1;
+    thistle_cart[idstr][0] = Math.max(0, thistle_cart[idstr][0]);
+    document.getElementById('val').innerHTML = thistle_cart[idstr][0];
+    updateCart(thistle_cart);
+});
+$('.divpr').on("click", "button.plus", function() {
+    var idstr = document.getElementById('prid').value;
+
+    if (thistle_cart[idstr]!=undefined){
+      thistle_cart[idstr][0] = thistle_cart[idstr][0] + 1;
+    document.getElementById('val').innerHTML = thistle_cart[idstr][0];
+    }
+    else{
+        qty = 1;
+        name = document.getElementById('name').innerHTML;
+        price = document.getElementById('price').innerHTML;
+        img = document.getElementById('img').value;
+        thistle_cart[idstr] = [qty,name,parseInt(price),img,idstr.slice(2)];
+    }
+    updateCart(thistle_cart);
+});
+
+</script>
 {% endblock %}
 
 
