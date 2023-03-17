@@ -64,7 +64,7 @@
             </div>
           </div>
           <div class="flex">
-            <span class="title-font font-medium text-2xl text-gray-900" > &#8377<span id="price">{{product.mrp}}</span></span>
+            <span class="title-font font-medium text-2xl text-gray-900" > &#8377 <span id="price"> {{product.sale_price}} </span><span id="mrp"> {{product.mrp}}</span></span>
             {% if product.availabilty %}
             <span id="atc" class="divpr"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
             {% else %}
@@ -184,8 +184,9 @@ $('.cart').click(function() {
 
         name = document.getElementById('name').innerHTML;
         price = document.getElementById('price').innerHTML;
+        mrp = document.getElementById('mrp').innerHTML;
         img = document.getElementById('img').value;
-        thistle_cart[idstr] = [qty,name,parseInt(price),img,idstr.slice(2)];
+        thistle_cart[idstr] = [qty,name,parseInt(price),parseInt(mrp),img,idstr.slice(2)];
     }
     updateCart(thistle_cart);
 });
@@ -240,8 +241,9 @@ $('.divpr').on("click", "button.plus", function() {
         qty = 1;
         name = document.getElementById('name').innerHTML;
         price = document.getElementById('price').innerHTML;
+        mrp = document.getElementById('mrp').innerHTML;
         img = document.getElementById('img').value;
-        thistle_cart[idstr] = [qty,name,parseInt(price),img,idstr.slice(2)];
+        thistle_cart[idstr] = [qty,name,parseInt(price),parseInt(mrp),img,idstr.slice(2)];
     }
     updateCart(thistle_cart);
 });
