@@ -65,9 +65,13 @@
           </div>
           <div class="flex">
             <span class="title-font font-medium text-2xl text-gray-900" > &#8377<span id="price">{{product.mrp}}</span></span>
-            <span id="atc"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
-            
+            {% if product.availabilty %}
+            <span id="atc" class="divpr"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
+            {% else %}
+            <button disabled class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Out of stock</button>
+            {% endif %}
           </div>
+
 
           {% if done %}
           review already added
