@@ -45,15 +45,19 @@ def productview(request,myid):
 
     # calculate reviews
     total = 0
-    ratings=0
+    ratings= 0
     for review in this_reviews:
         total+=1
         ratings+=review['rate']
     def myround(x, base=1):
         return base * round(float(x) / base)
-    star_count= myround(ratings/total)
-    print(ratings/total)
-    stars = [ 1  if i<=star_count else 0 for i in range(5) ]
+    if total!=0:
+        star_count= myround(ratings/total)
+    else:
+        star_count = 0
+    print(ratings)
+    print(total)
+    stars = [ 1  if i<star_count else 0 for i in range(5) ]
     print(stars)
     return render(request,'prodview.html',{
         'product':product[0],
