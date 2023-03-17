@@ -6,98 +6,22 @@
 {% block body %}
 
 <section class="text-gray-600 body-font overflow-hidden">
-    <div class="container px-5 py-10 mx-auto">
-      <div class="lg:w-4/5 mx-auto flex flex-wrap">
-        <div class="md:w-1/2 w-full">
-
-<div id="carouselExampleControls" class="relative" data-te-carousel-init data-te-carousel-slide>
-
-<div
-  class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-  {% for p in photos %}
-
-
-    <div
-id="carouselExampleControls"
-class="relative"
-data-te-carousel-init
-data-te-carousel-slide>
-<div
-  class="relative w-full overflow-hidden after:clear-both after:block after:content-['']">
-
-  <div
-    class="relative float-left -mr-[100%] w-full transition-transform duration-[600ms] ease-linear "
-    data-te-carousel-item
-    data-te-carousel-active>
-    <img
-
-      src="{{p.images.url}}"
-      class="block w-full"
-      alt="Product" />
-  </div>
-  {% endfor %}
-</div>
-
-      src="{{product.image}}"
-      class="block w-full"
-      alt="Product" />
-  </div>
-</div>
-
-<button
-  class="absolute top-0 bottom-0 left-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-linear hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none "
-  type="button"
-  data-te-target="#carouselExampleControls"
-  data-te-slide="prev">
-  <span class="inline-block h-8 w-8">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="h-6 w-6">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M15.75 19.5L8.25 12l7.5-7.5" />
-    </svg>
-  </span>
-  <span
-    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-    >Previous</span
-  >
-</button>
-<button
-  class="absolute top-0 bottom-0 right-0 z-[1] flex w-[15%] items-center justify-center border-0 bg-none p-0 text-center text-white opacity-50 transition-opacity duration-150 ease-linear hover:text-white hover:no-underline hover:opacity-90 hover:outline-none focus:text-white focus:no-underline focus:opacity-90 focus:outline-none "
-  type="button"
-  data-te-target="#carouselExampleControls"
-  data-te-slide="next">
-  <span class="inline-block h-8 w-8">
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke-width="1.5"
-      stroke="currentColor"
-      class="h-6 w-6">
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-    </svg>
-  </span>
-  <span
-    class="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"
-    >Next</span
-  >
-</button>
-</div>
-
-  </div>
-
-
-  </div>
+  <div class="w-full px-5 py-7 mx-auto">
+    <div class="lg:w-4/5 mx-auto flex flex-wrap items-center">
+      <!------------------------------------------------ Carousel--------------------- -->
+      <div class="md:w-1/2 w-full overflow-hidden">
+        <div class="flex flex-row flex-nowrap relative items-center flex-auto h-fit slider transition ease-out delay-150 duration-500">
+          <!------------------------------ For Loop------------------- -->
+          {% for p in photos %}
+        <img src="{{p.images.url}}" class="slide w-full" alt="prod1">
+        
+        <!-------------- End For Loop------------------------------------------- -->
+        {% endfor %}
+        </div>
+        <div class="text-center">
+       <button class=" hover:bg-purple-200 p-2" onclick="prev()"><i class="fa-solid fa-chevron-left"></i></button>&nbsp <button class=" hover:bg-purple-200 p-2" onclick="next()"><i class="fa-solid fa-chevron-right"></i></button>
+      </div>
+      </div>
 
         <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
           <h2 class="text-sm title-font text-gray-500 tracking-widest" id="redirect">Thistle</h2>
@@ -185,7 +109,42 @@ data-te-carousel-slide>
       
 {% endblock %}
 {% block js %}
-
+const slides=document.querySelectorAll(".slide");
+const slider=document.querySelector(".slider");
+let c=0;
+let i=0;
+slides.forEach((slide,index)=>{
+   i=index
+})
+function slideshow(){
+  slides.forEach((slide)=>{
+    slider.style.transform=`translateX(-${c * 100}%)`
+  })
+}
+function prev(){
+  if(c<=0){
+    c=i
+  }
+  else{c--}
+  slideshow()
+}
+function next(){
+  if(c>=i){
+    c=0
+  }
+  else{c++}
+  slideshow()
+}
+//favorite javascript
+const fav=document.querySelector(".fav");
+let like=false;
+function favorite(){
+  like=!like;
+  if(like===true){
+    fav.classList.add("text-red-700")
+  }else{fav.classList.remove("text-red-700")}
+  
+}
 {% endblock %}
 
 

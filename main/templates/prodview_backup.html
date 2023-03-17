@@ -1,0 +1,107 @@
+
+<section class="text-gray-600 body-font overflow-hidden">
+    <div class="w-full px-5 py-7 mx-auto">
+      <div class="lg:w-4/5 mx-auto flex flex-wrap items-center">
+        <!------------------------------------------------ Carousel--------------------- -->
+        <div class="md:w-1/2 w-full overflow-hidden">
+          <div class="flex flex-row flex-nowrap relative items-center flex-auto h-fit slider transition ease-out delay-150 duration-500">
+            <!------------------------------ For Loop------------------- -->
+          <img src="https://source.unsplash.com/random/?shoes" class="slide w-full" alt="prod1">
+          <img src="https://source.unsplash.com/random/?boat" class="slide w-full" alt="prod2">
+          <img src="https://source.unsplash.com/random/?cat" class="slide w-full" alt="prod3">
+          <img src="https://source.unsplash.com/random/?dog" class="slide w-full" alt="prod4">
+          <!-------------- End For Loop------------------------------------------- -->
+          </div>
+          <div class="text-center">
+         <button class=" hover:bg-purple-200 p-2" onclick="prev()"><i class="fa-solid fa-chevron-left"></i></button>&nbsp <button class=" hover:bg-purple-200 p-2" onclick="next()"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
+        </div>
+                                <!------------------------- Prod Desc------------------- -->
+    
+  
+        <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+          <h2 class="text-sm title-font text-gray-500 tracking-widest" id="redirect">Thistle</h2>
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-1" id="pr_name">{{product.product_name}}</h1>
+          <div class="flex mb-4">
+            <span class="flex items-center">
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 text-indigo-500" viewBox="0 0 24 24">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+              </svg>
+              
+            </span>
+            <span class="flex ml-3 pl-3 py-2 border-l-2 border-gray-200 space-x-2s">
+             
+            </span>
+          </div>
+  
+          <p class="leading-relaxed">{{product.desc}}</p>
+        <p class="leading-relaxed">{{product.desc2}}</p>
+        <p class="leading-relaxed">{{product.directions}}</p>
+  
+          
+          <div class="flex mt-5 items-center">
+            <span class="title-font font-medium text-2xl text-gray-900" > &#8377<span id="price">4655</span></span>
+            <button class="rounded-full w-10 h-10 bg-gray-200 p-0 border-0 inline-flex items-center justify-center text-gray-500 ml-4 hover:text-red-700 fav" onclick="favorite()">
+              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
+                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
+              </svg>
+            <button id="cart" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button>
+           
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    //slider javascript
+    const slides=document.querySelectorAll(".slide");
+    const slider=document.querySelector(".slider");
+    let c=0;
+    let i=0;
+    slides.forEach((slide,index)=>{
+       i=index
+    })
+    function slideshow(){
+      slides.forEach((slide)=>{
+        slider.style.transform=`translateX(-${c * 100}%)`
+      })
+    }
+    function prev(){
+      if(c<=0){
+        c=i
+      }
+      else{c--}
+      slideshow()
+    }
+    function next(){
+      if(c>=i){
+        c=0
+      }
+      else{c++}
+      slideshow()
+    }
+  //favorite javascript
+  const fav=document.querySelector(".fav");
+  let like=false;
+    function favorite(){
+      like=!like;
+      if(like===true){
+        fav.classList.add("text-red-700")
+      }else{fav.classList.remove("text-red-700")}
+      
+    }
+  </script>
