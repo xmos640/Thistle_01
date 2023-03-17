@@ -55,10 +55,9 @@ def productview(request,myid):
         star_count= myround(ratings/total)
     else:
         star_count = 0
-    print(ratings)
-    print(total)
+    
     stars = [ 1  if i<star_count else 0 for i in range(5) ]
-    print(stars)
+  
     return render(request,'prodview.html',{
         'product':product[0],
         'product_id':myid,
