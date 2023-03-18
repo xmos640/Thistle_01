@@ -19,7 +19,7 @@
         <!-------------- End For Loop------------------------------------------- -->
         {% endfor %}
         </div>
-        <div class="text-center">
+        <div class="text-center py-2">
        <button class=" hover:bg-purple-200 p-2" onclick="prev()"><i class="fa-solid fa-chevron-left"></i></button>&nbsp <button class=" hover:bg-purple-200 p-2" onclick="next()"><i class="fa-solid fa-chevron-right"></i></button>
       </div>
       </div>
@@ -49,11 +49,12 @@
              
             </span>
           </div>
-          <ul class="list-disc">
-          <li><p class="leading-relaxed">{{product.desc}}</p></li>
-        <li><p class="leading-relaxed">{{product.desc2}}</p></li>
-        <li><p class="leading-relaxed">{{product.directions}}</p></li>
-        </ul>
+
+          <p class="leading-relaxed font-medium">{{product.desc}}</p>
+          <p class="leading-relaxed font-medium">{{product.desc2}}</p>
+          <p class="font-bold pt-2">Directions:</p>
+          <p class="leading-relaxed">{{product.directions}}</p>
+
           <div class="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
             <div class="flex ml-6 items-center">
               
@@ -62,53 +63,74 @@
               </div>
             </div>
           </div>
-          <div class="flex">
-            <span class="title-font font-medium text-2xl text-gray-900" > &#8377 <span id="price"> {{product.sale_price}} </span><span id="mrp"> {{product.mrp}}</span></span>
+          <div class="flex mt-5 items-cente">
+            <span class="title-font font-medium text-2xl text-gray-900" > <span id="price" class="line-through text-xl text-gray-700"> &#8377 {{product.mrp}}</span><span id="mrp" class="pl-2">&#8377 {{product.sale_price}}</span></span>
             {% if product.availabilty %}
             <span id="atc" class="divpr"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
             {% else %}
             <button disabled class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Out of stock</button>
             {% endif %}
           </div>
-
-
-          {% if done %}
-          review already added
-          {% else %}
-          Add a review:
-          <br>
-          <form action="#reviews" method="post" > {% csrf_token %}
-            
-          <div>
-            <input type="radio" name="rating" id="star1" value="1">
-            
-            <input type="radio" name="rating" id="star2" value="2">
-            
-            <input type="radio" name="rating" id="star3" value="3">
-            
-            <input type="radio" name="rating" id="star4" value="4">
-            
-            <input type="radio" name="rating" id="star5" value="5">
-            
-          </div>
-          <input type="hidden" class="form-control" id="name" name = "name" value="{{request.user}}">
-            <input type="hidden" class="form-control" id="email" name="email" value="{{request.user.email}}">
-          <input type="text" name="review" id="" placeholder="review">
-          <button type="submit" class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
-            Submit review
-          </button>
-          </form>
-          {% endif %}
         </div>
       </div>
     </div>
+    <!-------------------------------------- Feedback-------------------------------------------------------------- -->
+    <div class="lg:w-4/5 mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300">Feedback</h3>
+      <div class="flex flex-row">
+      <div class="p-5 md:w-1/2 w-full">
+       <div> REVIEWS</div>
+       <div class="pt-3">
+       
+        <div class=" flex flex-row items-center py-2">
+          <!-- -------------------------------------------------------Previous reviews ----------------------------------------- -->
+          {% for i in reviews %}
+          {{i.name}}
+          {{i.rate}}
+          {{i.email}}
+          {{i.comment}}
+          {% endfor%}
+        </div>
+         
+       
+        </div>
+        
+      </div>
+      <div class="p-5 md:w-1/2 w-full">
+        
+        {% if done %}
+          review already added
+        {% else %}
+         WRITE YOUR REVIEW
+        <form class="py-3" actiion="/products/{{product.product_id}}" method="get">
+          <input type="hidden" class="form-control" id="name" name = "name" value="{{request.user}}">
+            <input type="hidden" class="form-control" id="email" name="email" value="{{request.user.email}}">
+        <textarea placeholder="Your Review" name="review" class="border-2 border-purple-300 w-full text-md p-2" rows="4"></textarea>
+        
+          <div class="py-3"> YOUR RATING:&nbsp 
+            <input type="radio" name="rating" id="star1" value="1" class="hidden"><label for="star1"><i class="fa-solid fa-star cursor-pointer hover:text-yellow-400"></i></label>
+            <input type="radio" name="rating" id="star2" value="2" class="hidden"><label for="star2"><i class="fa-solid fa-star cursor-pointer hover:text-yellow-400"></i></label>
+            <input type="radio" name="rating" id="star3" value="3" class="hidden"><label for="star3"><i class="fa-solid fa-star cursor-pointer hover:text-yellow-400"></i></label>
+            <input type="radio" name="rating" id="star4" value="4" class="hidden"><label for="star4"><i class="fa-solid fa-star cursor-pointer hover:text-yellow-400"></i></label>
+            <input type="radio" name="rating" id="star5" value="5" class="hidden"><label for="star5"><i class="fa-solid fa-star cursor-pointer hover:text-yellow-400"></i></label>
+          </div>
+          <button type="submit" class="bg-indigo-500 text-white px-5 py-2 border-2 rounded hover:bg-indigo-600 cursor-pointer">Submit review</button>
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+
+          
+          
+          
+          
+      
   </section>
-  {% for i in reviews %}
-  {{i.name}}
-  {{i.rate}}
-  {{i.email}}
-  {{i.comment}}
-  {% endfor%}
+  
+  
+ 
+  
+
   
       
 {% endblock %}
@@ -199,7 +221,7 @@ function updateCart(thistle_cart) {
 
         }
     var idstr = document.getElementById('prid').value;
-    if (thistle_cart[idstr] !== null){
+    if (thistle_cart[idstr] !== undefined){
     if (thistle_cart[idstr][0]!==0){
                 console.log(item)
             document.getElementById('atc').innerHTML = "<div class='mt-5  cart'><button id='minus' class=' minus mx-2 my-btns'>-</button> <span id='val'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus my-btns' style='margin-right:1rem; margin-left:0.5rem;'  > + </button> </div>";
@@ -249,8 +271,3 @@ $('.divpr').on("click", "button.plus", function() {
 
 </script>
 {% endblock %}
-
-
-
-
-

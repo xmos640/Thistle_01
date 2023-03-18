@@ -19,8 +19,24 @@ def productview(request,myid):
     # fetch details
     product = Product.objects.filter(product_id=myid).values()
     photos = prod_images.objects.filter(prod=myid)
-    this_reviews = Review.objects.filter(product=myid).values()
+    
 
+
+
+
+    # accept feedback
+    if request.method == "GET":
+        try:
+            name = request.GET.get('name','')
+            email = request.GET.get('email','')
+            comment = request.GET.get('review','')
+            rating = request.GET.get('rating','')
+            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid)
+            feedback.save()
+        except Exception as e:
+            pass
+    this_reviews = Review.objects.filter(product=myid).values()
+    
     # check user feedback
     emails = []
     for i in this_reviews:
@@ -30,18 +46,6 @@ def productview(request,myid):
         done=True
     else:
         done =False
-
-
-    # accept feedback
-    if request.method == "POST":
-        name = request.POST.get('name','')
-        email = request.POST.get('email','')
-        comment = request.POST.get('review','')
-        rating = request.POST.get('rating','')
-        feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid)
-        feedback.save()
-    
-
 
     # calculate reviews
     total = 0
@@ -57,7 +61,8 @@ def productview(request,myid):
         star_count = 0
     
     stars = [ 1  if i<star_count else 0 for i in range(5) ]
-  
+        
+
     return render(request,'prodview.html',{
         'product':product[0],
         'product_id':myid,

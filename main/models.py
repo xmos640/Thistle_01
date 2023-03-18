@@ -32,7 +32,7 @@ class sales(models.Model):
 class Review(models.Model):
     # user = models. ForeignKey (User, models.CASCADE)
     product =  models.CharField(max_length=100,default="")
-    email = models.CharField(max_length=250,default="")
+    email = models.CharField(max_length=250,default="",primary_key=True)
     name = models.CharField(max_length=250,default="")
 
     comment = models. TextField(max_length=5000)
