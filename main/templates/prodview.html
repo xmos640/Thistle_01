@@ -64,7 +64,7 @@
             </div>
           </div>
           <div class="flex mt-5 items-cente">
-            <span class="title-font font-medium text-2xl text-gray-900" > <span id="price" class="line-through text-xl text-gray-700"> &#8377 {{product.mrp}}</span><span id="mrp" class="pl-2">&#8377 {{product.sale_price}}</span></span>
+            <span class="title-font font-medium text-2xl text-gray-900" > &#8377<span id="mrp" class="line-through text-xl text-gray-700 pr-3"> {{product.mrp}} </span>  &#8377<span id="price" class="">{{product.sale_price}}</span></span>
             {% if product.availabilty %}
             <span id="atc" class="divpr"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
             {% else %}
