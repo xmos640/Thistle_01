@@ -92,11 +92,12 @@
         
       </div>
       <div class="p-5 md:w-1/2 w-full">
-        
+        {% if logged_in %}
         {% if done %}
           review already added
         {% else %}
          WRITE YOUR REVIEW
+    
         <form class="py-3" actiion="/products/{{product.product_id}}" method="get">
           <input type="hidden" class="form-control" id="name" name = "name" value="{{request.user}}">
             <input type="hidden" class="form-control" id="email" name="email" value="{{request.user.email}}">
@@ -112,6 +113,9 @@
 
           <button type="submit" class="bg-indigo-500 text-white px-5 py-2 border-2 rounded hover:bg-indigo-600 cursor-pointer">Submit review</button>
         </form>
+        {% endif %}
+        {% else %}
+        please login to review this item
         {% endif %}
       </div>
     </div>

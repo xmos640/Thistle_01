@@ -42,11 +42,16 @@ def productview(request,myid):
     for i in this_reviews:
         
         emails.append(i['email'])
-    if request.user.email in emails:
-        done=True
-    else:
-        done =False
+    try:
 
+        if request.user.email in emails:
+            done=True
+        else:
+            done =False
+        logged_in =True
+    except Exception as e:
+        logged_in = False
+        done=False
     # calculate reviews
     total = 0
     ratings= 0
@@ -69,7 +74,8 @@ def productview(request,myid):
         'photos':photos,
         'reviews':this_reviews,
         'done':done,
-        'stars':stars
+        'stars':stars,
+        'logged_in':logged_in
     })
 
 
