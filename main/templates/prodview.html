@@ -133,6 +133,10 @@
 {% endblock %}
 {% block js %}
 <script>
+
+// Carousel ======================================
+
+
 const slides=document.querySelectorAll(".slide");
 const slider=document.querySelector(".slider");
 let c=0;
@@ -161,7 +165,7 @@ function next(){
 }
 
 
-// STARSSS
+// STARSSS ================================
 
 const rates=document.querySelectorAll(".rate");
 rates.forEach((rate,index)=>{
@@ -195,7 +199,10 @@ if (localStorage.getItem('thistle_cart') == null) {
     console.log(thistle_cart);
     updateCart(thistle_cart);
 }
-// If the add to cart button is clicked, add/increment the item
+
+
+
+// ==========================If the add to cart button is clicked, add/increment the item ====================
 $('.cart').click(function() {
     console.log('clicked');
     var idstr = document.getElementById('prid').value;
@@ -251,7 +258,11 @@ function updateCart(thistle_cart) {
 }
 
 
-// If plus or minus button is clicked, change the cart as well as the display value
+// If plus or minus button is clicked, change the cart as well as the display value==================
+// =======================
+// ========================
+
+
 $('.divpr').on("click", "button.minus", function() {
     var idstr = document.getElementById('prid').value;
     console.log(thistle_cart)
