@@ -36,9 +36,11 @@ def productview(request,myid):
         except Exception as e:
             pass
     this_reviews = Review.objects.filter(product=myid).values()
+
     
     # check user feedback
     emails = [i['email'] for i in this_reviews]
+    
 
     try:
 
@@ -46,9 +48,11 @@ def productview(request,myid):
             done=True
             user_review = this_reviews.filter(email= request.user.email)[0]
         else:
+        
             done =False
         logged_in =True
     except Exception as e:
+        print(e)
         logged_in = False
         done=False
         user_review=False
@@ -67,7 +71,7 @@ def productview(request,myid):
     
     stars = [ 1  if i<star_count else 0 for i in range(5) ]
         
-
+    this_reviews=this_reviews[::-1]
     return render(request,'prodview.html',{
         'product':product[0],
         'product_id':myid,

@@ -59,35 +59,39 @@
               </div>
             </div>
           </div>
-          <div class="flex mt-5 items-cente">
-            <span class="title-font font-medium text-2xl text-gray-900" > &#8377<span id="mrp" class="line-through text-xl text-gray-700 pr-3"> {{product.mrp}} </span>  &#8377<span id="price" class="">{{product.sale_price}}</span></span>
+          <div class="mt-5 items-center w-full ">
+            <span class="title-font font-medium text-2xl text-gray-900" >
+                &#8377<span id="price" class="pr-2">{{product.sale_price}}</span>
+                <span  class="line-through text-xl text-gray-600 pr-3"> &#8377<span id="mrp"> {{product.mrp}} </span></span> </span>
+            <span id="discount" class=""></span>
             {% if product.availabilty %}
-            <span id="atc" class="divpr"> <button class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Add to cart</button></span>
+            <span id="atc" class="divpr"> <button class=" cart flex  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mt-5 rounded">Add to cart</button></span>
             {% else %}
-            <button disabled class=" cart flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Out of stock</button>
+            <button disabled class=" cart flex mt-5 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Out of stock</button>
             {% endif %}
           </div>
         </div>
       </div>
     </div>
     <!-------------------------------------- Feedback-------------------------------------------------------------- -->
-    <div class=" mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300 md: ml-2">Customer reviews</h3>
+    <div class=" lg:w-4/5 mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300 md: ml-2">Customer reviews</h3>
       <div class="lg:flex flex-row">
-      <div class="p-5  w-full ">
+      <div class="p-5  w-full lg:w-1/2">
        
        <div class="pt-3">
         {% for i in reviews %}
         <div class=" flex flex-row items-center py-2">
           
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full lg:w-4/5">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full ">
               <div class="px-6 py-4">
-                <div class="text-xl font-bold mb-2">
+                <div class="text-xl font-bold mb-4 w-full flex flex-row">
                   <span class="mr-2">{{i.name}}</span>
-                  <span class="text-right">
+                  <span class=" ml-auto">
+            
                     {% for j in '12345'|make_list %}
                     {% if forloop.counter <= i.rate %}
 
-                    <i class="fa-solid fa-star text-red-500" style="transform: scale(0.8);"></i>
+                    <i class="fa-solid fa-star text-red-500 " style="transform: scale(0.8);"></i>
               
                     {% else %}
                     
@@ -97,7 +101,7 @@
                     {% endfor %}
                   </span>
                 </div>
-                <p class="text-gray-700 text-base break-words">{{i.comment}}</p>
+                <p class="text-gray-500 text-base break-words">{{i.comment}}</p>
               </div>
               
             </div>
@@ -111,14 +115,16 @@
         
       
       <div class="p-5   w-full">
+        <!-- USER REVIEW ================= -->
         {% if logged_in %}
         {% if done %}
+        
           <div class="pt-5">
           <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full ">
             <div class="px-6 py-4">
-              <div class="text-xl font-bold mb-2">
+              <div class="text-xl font-bold mb-2 flex flex-row ">
                 <span class="mr-2">{{user_review.name}}</span>
-                <span class="text-right">
+                <span class="text-right ml-auto">
                   {% for j in '12345'|make_list %}
                   {% if forloop.counter <= user_review.rate %}
 
@@ -230,7 +236,9 @@ rates.forEach((rate,index)=>{
 })
 })
 
-
+const disc = ('{{product.mrp}}' - '{{product.sale_price}}')/'{{product.mrp}}'*100;
+console.log(disc)
+document.getElementById('discount').innerHTML=disc.toFixed(2)+"%";
 
 
 // Adding cart items  ---------
@@ -287,7 +295,7 @@ function updateCart(thistle_cart) {
     if (thistle_cart[idstr] !== undefined){
     if (thistle_cart[idstr][0]!==0){
                 console.log(item)
-            document.getElementById('atc').innerHTML = "<div class='mt-5  cart'><button id='minus' class=' minus mx-2 my-btns'>-</button> <span id='val'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus my-btns' style='margin-right:1rem; margin-left:0.5rem;'  > + </button> </div>";
+            document.getElementById('atc').innerHTML = "<div class='mt-5  cart'><button id='minus' class=' minus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'>-</button> <span id='val' class=' font-bold p-3'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'   > + </button> </div>";
             }
             else {
                 delete thistle_cart[item];

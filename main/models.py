@@ -7,14 +7,15 @@ class Product(models.Model):
     category = models.CharField(max_length=50, default="")
     subcategory = models.CharField(max_length=50,default="")
     size = models.CharField(max_length=200,default="")
-    mrp = models.CharField(max_length = 200, default="")
-    sale_price = models.CharField(max_length =200,default ="")
+    mrp = models.IntegerField(max_length = 200, default="")
+    sale_price = models.IntegerField(max_length =200,default ="")
     desc = models.CharField(max_length=5000,default="")
     desc2 = models.CharField(max_length=5000,default='')
     pub_date = models.DateField()
     image = models.FileField(upload_to="images/",default="")
     availabilty = models.IntegerField(default=1)
     directions = models.CharField(max_length=4000,default="")
+     
     # sale_name = models.CharField(max_length=100,default="")
 
     def __str__(self):
