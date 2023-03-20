@@ -71,15 +71,15 @@
       </div>
     </div>
     <!-------------------------------------- Feedback-------------------------------------------------------------- -->
-    <div class="lg:w-4/5 mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300 md: ml-2">Customer reviews</h3>
+    <div class=" mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300 md: ml-2">Customer reviews</h3>
       <div class="lg:flex flex-row">
-      <div class="p-5  w-full">
+      <div class="p-5  w-full ">
        
        <div class="pt-3">
         {% for i in reviews %}
         <div class=" flex flex-row items-center py-2">
           
-            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full">
+            <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full lg:w-4/5">
               <div class="px-6 py-4">
                 <div class="text-xl font-bold mb-2">
                   <span class="mr-2">{{i.name}}</span>
@@ -87,17 +87,17 @@
                     {% for j in '12345'|make_list %}
                     {% if forloop.counter <= i.rate %}
 
-                    <i class="fa-solid fa-star text-red-500"></i>
+                    <i class="fa-solid fa-star text-red-500" style="transform: scale(0.8);"></i>
               
                     {% else %}
                     
-                    <i class="fa-regular fa-star text-red-500"></i>
+                    <i class="fa-regular fa-star text-red-500" style="transform: scale(0.8);"></i>
                     
                     {% endif %}
                     {% endfor %}
                   </span>
                 </div>
-                <p class="text-gray-700 text-base">{{i.comment}}</p>
+                <p class="text-gray-700 text-base break-words">{{i.comment}}</p>
               </div>
               
             </div>
@@ -110,10 +110,34 @@
         </div>
         
       
-      <div class="p-5   w-full lg: w-1/2">
+      <div class="p-5   w-full">
         {% if logged_in %}
         {% if done %}
-          review already added
+          <div class="pt-5">
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full ">
+            <div class="px-6 py-4">
+              <div class="text-xl font-bold mb-2">
+                <span class="mr-2">{{user_review.name}}</span>
+                <span class="text-right">
+                  {% for j in '12345'|make_list %}
+                  {% if forloop.counter <= user_review.rate %}
+
+                  <i class="fa-solid fa-star text-red-500" style="transform: scale(0.8);"></i>
+            
+                  {% else %}
+                  
+                  <i class="fa-regular fa-star text-red-500" style="transform: scale(0.8);"> </i>
+                  
+                  {% endif %}
+                  {% endfor %}
+                </span>
+              </div>
+              <p class="text-gray-700 text-base">{{user_review.comment}}</p>
+            </div>
+            
+          </div>
+        </div>
+      </div>
         {% else %}
          WRITE YOUR REVIEW
     
