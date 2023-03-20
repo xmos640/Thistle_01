@@ -14,6 +14,16 @@ def index(request):
     params = {'allProds':allProds}
     return render(request, 'index.html', params)
 
+
+
+
+
+
+
+
+
+
+
 def productview(request,myid):
 
     # fetch details
@@ -50,12 +60,14 @@ def productview(request,myid):
         else:
         
             done =False
+            user_review = False
         logged_in =True
     except Exception as e:
         print(e)
         logged_in = False
         done=False
         user_review=False
+
     # calculate reviews
     total = 0
     ratings= 0
@@ -70,7 +82,7 @@ def productview(request,myid):
         star_count = 0
     
     stars = [ 1  if i<star_count else 0 for i in range(5) ]
-        
+    
     this_reviews=this_reviews[::-1]
     return render(request,'prodview.html',{
         'product':product[0],
@@ -83,6 +95,14 @@ def productview(request,myid):
         'user_review':user_review,
     })
 
+
+
+
+
+
+
+def cart(request):
+    return render(request,'cart.html')
 
 def get_user_email(access_token):
     r = requests.get(

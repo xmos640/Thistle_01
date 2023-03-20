@@ -226,7 +226,7 @@ rates.forEach((rate,index)=>{
     let x= index;
     rates.forEach((rate,t)=>{
       if(x>=t){
-        rate.style.color="rgba(255, 89, 89, 0.8)"
+        rate.style.color="rgb(239, 68, 68)"
       }
       else{
         rate.style.color="rgb(75 85 99)"
@@ -295,7 +295,7 @@ function updateCart(thistle_cart) {
     if (thistle_cart[idstr] !== undefined){
     if (thistle_cart[idstr][0]!==0){
                 console.log(item)
-            document.getElementById('atc').innerHTML = "<div class='mt-5  cart'><button id='minus' class=' minus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'>-</button> <span id='val' class=' font-bold p-3'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'   > + </button> </div>";
+            document.getElementById('atc').innerHTML = "<div class='mt-5  cart'><button id='minus' class=' minus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'>-</button> <span id='val' class=' font-bold p-3 mx-2 border text-center w-8'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'   > + </button> </div>";
             }
             else {
                 delete thistle_cart[item];
