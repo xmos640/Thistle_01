@@ -16,8 +16,19 @@ def index(request):
 
 
 
-
-
+#==================================== accept feedback ====================================================================================
+#  if request.method == "GET":
+#         try:
+#             name = request.GET.get('name','')
+#             email = request.GET.get('email','')
+#             comment = request.GET.get('review','')
+#             rating = request.GET.get('rating','')
+#             user_review = str(myid) + email
+#             product_name = request.GET.get('product_name','')
+#             feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,product_name=product_name,user_review=user_review)
+#             feedback.save()
+#         except Exception as e:
+#             print(e)
 
 
 
@@ -30,23 +41,6 @@ def productview(request,myid):
     product = Product.objects.filter(product_id=myid).values()
     photos = prod_images.objects.filter(prod=myid)
     
-
-
-
-
-    # accept feedback
-    if request.method == "GET":
-        try:
-            name = request.GET.get('name','')
-            email = request.GET.get('email','')
-            comment = request.GET.get('review','')
-            rating = request.GET.get('rating','')
-            user_review = str(myid) + email
-            product_name = request.GET.get('product_name','')
-            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,product_name=product_name,user_review=user_review)
-            feedback.save()
-        except Exception as e:
-            print(e)
     this_reviews = Review.objects.filter(product=myid).values()
 
     

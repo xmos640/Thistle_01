@@ -73,10 +73,7 @@
             {% else %}
             <button disabled class=" cart flex mt-5 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Out of stock</button>
             {% endif %}
-            <button class="rounded-full w-10 h-10 py-2 mt-5 border-0 inline-flex items-center justify-center text-gray-500 ml-4 hover:text-red-700 fav" >
-              <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-7 h-7" viewBox="0 0 24 24">
-                <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"></path>
-              </svg>
+            
             </div>
         </div>
       </div>
@@ -84,7 +81,7 @@
     <!-------------------------------------- Feedback-------------------------------------------------------------- -->
     <div class=" lg:w-4/5 mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300 md: ml-2">Customer reviews</h3>
       <div class="lg:flex flex-row">
-      <div class="p-5  w-full lg:w-1/2">
+      <div class="p-5  w-full ">
        
        <div class="pt-3">
         {% for i in reviews %}
@@ -117,67 +114,9 @@
           <!-- -------------------------------------------------------Previous reviews ----------------------------------------- -->
           {% endfor %} 
         </div>
-        
-       
-        </div>
-        
-      
-      <div class="p-5   w-full lg:w-1/2">
-        <!-- USER REVIEW ================= -->
-        {% if logged_in %}
-        {% if done %}
-        
-          <div class="pt-5">
-          <div class="bg-white rounded-lg shadow-lg overflow-hidden w-full ">
-            <div class="px-6 py-4">
-              <div class="text-xl font-bold mb-2 flex flex-row ">
-                <span class="mr-2">{{user_review.name}}</span>
-                <span class="text-right ml-auto">
-                  {% for j in '12345'|make_list %}
-                  {% if forloop.counter <= user_review.rate %}
 
-                  <i class="fa-solid fa-star text-red-500" style="transform: scale(0.8);"></i>
-            
-                  {% else %}
-                  
-                  <i class="fa-regular fa-star text-red-500" style="transform: scale(0.8);"> </i>
-                  
-                  {% endif %}
-                  {% endfor %}
-                </span>
-              </div>
-              <p class="text-gray-700 text-base">{{user_review.comment}}</p>
-            </div>
-            
-          </div>
-        </div>
-      </div>
-        {% else %}
-         WRITE YOUR REVIEW
-         <!-- <img src="{% static '20221216_231612_06.jpg' %}" alt=""> -->
-         <!-- "{% static '20221216_231612_06.jpg' %}" -->
-    
-        <form class="py-3" actiion="/products/{{product.product_id}}" method="get">
-          <input type="hidden" class="form-control" id="name" name = "name" value="{{request.user}}">
-            <input type="hidden" class="form-control" id="email" name="email" value="{{request.user.email}}">
-            <input type="hidden"  name="product_name" id="pr_name" value="{{product.product_name}}">
-        <textarea placeholder="Your Review" name="review" class="border-2 border-purple-300 w-full text-md p-2" rows="4"></textarea>
         
-        <div class="py-3"> YOUR RATING:&nbsp 
-          <input type="radio" name="rating" id="star1" value="1" class="hidden"><label for="star1"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-          <input type="radio" name="rating" id="star2" value="2" class="hidden"><label for="star2"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-          <input type="radio" name="rating" id="star3" value="3" class="hidden"><label for="star3"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-          <input type="radio" name="rating" id="star4" value="4" class="hidden"><label for="star4"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-          <input type="radio" name="rating" id="star5" value="5" class="hidden"><label for="star5"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
         </div>
-
-          <button type="submit" class="bg-indigo-500 text-white px-5 py-2 border-2 rounded hover:bg-indigo-600 cursor-pointer">Submit review</button>
-        </form>
-        {% endif %}
-        {% else %}
-        please login to review this item
-        {% endif %}
-      </div>
     </div>
   </div>
 

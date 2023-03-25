@@ -45,6 +45,3 @@ class Review(models.Model):
     def __str__(self): 
         return str(self.product_name+" "+str(self.rate)+" stars") 
 
-# class likes(models.Model):
-#     pro
-    
