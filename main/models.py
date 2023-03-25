@@ -37,13 +37,13 @@ class Review(models.Model):
     email = models.CharField(max_length=250,default="")
     user_review = models.CharField(max_length=3000,primary_key=True) 
     name = models.CharField(max_length=250,default="")
-
+    product_name=models.CharField(max_length=100,default="")
     comment = models. TextField(max_length=5000)
     rate = models. IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self): 
-        return str(self.product+" "+str(self.rate)+" stars") 
+        return str(self.product_name+" "+str(self.rate)+" stars") 
 
 # class likes(models.Model):
 #     pro

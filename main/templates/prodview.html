@@ -7,6 +7,7 @@
 {% load static %}
 <input type="hidden" value="pr{{product.product_id}}" id="prid">
 <input type="hidden" id="img" value="{{photos.0.images.url}}">
+
 <section class="text-gray-600 body-font overflow-hidden">
   <div class="w-full px-5 py-7 mx-auto">
     <div class="lg:w-4/5 mx-auto flex flex-wrap items-center">
@@ -159,6 +160,7 @@
         <form class="py-3" actiion="/products/{{product.product_id}}" method="get">
           <input type="hidden" class="form-control" id="name" name = "name" value="{{request.user}}">
             <input type="hidden" class="form-control" id="email" name="email" value="{{request.user.email}}">
+            <input type="hidden"  name="product_name" id="pr_name" value="{{product.product_name}}">
         <textarea placeholder="Your Review" name="review" class="border-2 border-purple-300 w-full text-md p-2" rows="4"></textarea>
         
         <div class="py-3"> YOUR RATING:&nbsp 

@@ -42,7 +42,8 @@ def productview(request,myid):
             comment = request.GET.get('review','')
             rating = request.GET.get('rating','')
             user_review = str(myid) + email
-            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,user_review=user_review)
+            product_name = request.GET.get('product_name','')
+            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,product_name=product_name,user_review=user_review)
             feedback.save()
         except Exception as e:
             print(e)
