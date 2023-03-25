@@ -41,10 +41,11 @@ def productview(request,myid):
             email = request.GET.get('email','')
             comment = request.GET.get('review','')
             rating = request.GET.get('rating','')
-            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid)
+            user_review = str(myid) + email
+            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,user_review=user_review)
             feedback.save()
         except Exception as e:
-            pass
+            print(e)
     this_reviews = Review.objects.filter(product=myid).values()
 
     

@@ -15,6 +15,7 @@ class Product(models.Model):
     image = models.FileField(upload_to="images/",default="")
     availabilty = models.IntegerField(default=1)
     directions = models.CharField(max_length=4000,default="")
+    # likes = 
      
     # sale_name = models.CharField(max_length=100,default="")
 
@@ -33,7 +34,8 @@ class sales(models.Model):
 class Review(models.Model):
     # user = models. ForeignKey (User, models.CASCADE)
     product =  models.CharField(max_length=100,default="")
-    email = models.CharField(max_length=250,default="",primary_key=True)
+    email = models.CharField(max_length=250,default="")
+    user_review = models.CharField(max_length=3000,primary_key=True) 
     name = models.CharField(max_length=250,default="")
 
     comment = models. TextField(max_length=5000)
@@ -41,5 +43,8 @@ class Review(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self): 
-        return str(self.name+" "+str(self.rate)+" stars") 
+        return str(self.product+" "+str(self.rate)+" stars") 
+
+# class likes(models.Model):
+#     pro
     
