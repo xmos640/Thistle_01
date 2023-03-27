@@ -1,0 +1,46 @@
+{% extends 'basic.html' %}
+{% block title %} Cart-Thistle {% endblock %}
+{% block body %}
+<input type="hidden" name="itemsJson" id="itemsJson">
+{% endblock %}
+
+
+
+
+
+
+{% block js %}
+  <script>
+    if (localStorage.getItem('thistle_cart') == null) {
+        var cart = {};
+    } else {
+        cart = JSON.parse(localStorage.getItem('thistle_cart'));
+    }
+    console.log(cart);
+    var sum = 0;
+    
+    var shipping = parseInt(document.getElementById('shipping').innerHTML);
+    totalPrice = shipping;
+    var totalMrp = 0;
+    var subtotal = 0;
+    if ($.isEmptyObject(cart)) {
+        //if object is empty
+        mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+        $('#items').append(mystr);
+    } else {
+        for (item in cart) {
+            sum = sum + qty;
+            totalPrice = totalPrice + qty*price
+            subtotal = subtotal + qty*price
+            totalMrp = totalMrp + qty*  mrp  
+          }
+
+
+    }
+    // document.getElementById('cart').innerHTML = sum;
+    document.getElementById('totalPrice').innerHTML = totalPrice;
+    document.getElementById('subtotal').innerHTML = subtotal;
+    $('#itemsJson').val(JSON.stringify(cart));
+
+  </script>
+  {% endblock %}

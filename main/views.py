@@ -100,6 +100,10 @@ def productview(request,myid):
 def cart(request):
     return render(request,'cart.html')
 
+
+def checkout(request):
+    return render(request,'checkout.html')
+
 def get_user_email(access_token):
     r = requests.get(
             'https://www.googleapis.com/oauth2/v3/userinfo',

@@ -1,10 +1,10 @@
 {% extends 'basic.html' %}
 {% block title %} Cart-Thistle {% endblock %}
   {% block body %}
-  <section class="text-gray-600 body-font overflow-hidden">
-  <div class="w-full px-5 py-7 mx-auto">
+  <section class="text-gray-600 body-font overflow-hidden ">
+  <div class="w-full px-5 py-7 mx-auto ">
     <div class="lg:w-4/5 mx-auto flex flex-row gap-x-3 flex-wrap items-start">
-        <div class="flex flex-col md:w-2/3 w-full " id="items">
+        <div class="flex flex-col md:w-2/3 w-full  " id="items" style="min-height: 400px;">
 
           <!-- This is a cart item -->
           
@@ -12,14 +12,27 @@
             
           </div>
         
+
       <!------------------------------------- totaling-------------------------------- -->
-        <div class="flex bg-gray-300 pl-2 p-4 md:w-[29%] shadow-md w-full justify-center rounded">
+      
+        <div class="flex bg-gray-300 pl-2 p-4 md:w-[29%] shadow-md w-full justify-center rounded" >
           <div class="w-full">
+            <div class="flex justify-between mb-2">
+              <p>Cart value</p>
+              <p ><span> &#8377</span>
+                <span id='total_mrp'></span></p>
+            </div>
+            <div class="flex justify-between mb-2 font-bold">
+              <p>You save</p>
+              <p ><span>- &#8377</span>
+                <span id='discounted'></span></p>
+            </div>
             <div class="flex justify-between mb-2">
               <p>Subtotal</p>
               <p ><span> &#8377</span>
                 <span id='subtotal'></span></p>
             </div>
+            
             <div class="flex justify-between mb-2">
               <p>Shipping</p>
               <p ><span> &#8377</span>
@@ -32,9 +45,10 @@
             <span id='totalPrice'></span>
           </p>
             </div>
-            <button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Checkout</button>
+            <a href="/checkout"><button class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Checkout</button></a>
           </div>
         </div>
+      
       </div>
 
     
@@ -61,6 +75,8 @@
         //if object is empty
         mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
         $('#items').append(mystr);
+        // document.getElementById('bill').innerHTML = '';
+
     } else {
         for (item in cart) {
             let qty = cart[item][0];
@@ -69,21 +85,28 @@
             let mrp = cart[item][3]
             let img = cart[item][4];
             let prod_id = cart[item][5];
+            let category = cart[item][6];
             sum = sum + qty;
             totalPrice = totalPrice + qty*price
             subtotal = subtotal + qty*price
             totalMrp = totalMrp + qty*  mrp
+            
             if (qty!==0){
-           $('#items').append(`<div class="flex items-center mb-2 p-4 bg-white shadow-md rounded"><div class="w-1/5 "><img src="${img}" alt="Product image"></div><div class="pl-2 w-2/5"><h2 class="font-bold">${name}</h2><p class="text-gray-600">SKU: 12345</p></div><div class="w-1/5 flex justify-center font-semibold">${qty}</div><div class="w-1/5 flex justify-center"><p class="font-bold cost"><span> &#8377</span>
+           $('#items').append(`<div class="flex items-center mb-2 p-4 bg-white shadow-md rounded"><div class="w-1/5 "><img src="${img}" alt="Product image"></div><div class="pl-2 w-2/5"><h2 class="font-bold">${name}</h2><p class="text-gray-600">${category}</p></div><div class="w-1/5 flex justify-center font-semibold">${qty}</div><div class="w-1/5 flex justify-center"><p class="font-bold cost"><span> &#8377</span>
             <span id='price'>${price*qty}</span>
             </p></div></div>`);
             }
           }
 
     }
+    discount = totalMrp-subtotal
+
     // document.getElementById('cart').innerHTML = sum;
+    
     document.getElementById('totalPrice').innerHTML = totalPrice;
     document.getElementById('subtotal').innerHTML = subtotal;
+    document.getElementById('total_mrp').innerHTML = totalMrp;
+    document.getElementById('discounted').innerHTML = discount;
     $('#items_json').val(JSON.stringify(cart));
 
   </script>
