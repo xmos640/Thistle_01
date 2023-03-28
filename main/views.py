@@ -1,16 +1,18 @@
 from django.shortcuts import render,redirect
-from .models import Product,prod_images,Review
+from .models import Product,prod_images,Review,CouponCode
 from django.contrib.auth.models import User
 from django.contrib.auth  import logout
 import requests
+from datetime import date
 
 # Create your views here.
+
+
 def index(request):
     allProds = Product.objects.values()
+    print(allProds)
     
-        
     
-        
     params = {'allProds':allProds}
     return render(request, 'index.html', params)
 
@@ -102,7 +104,13 @@ def cart(request):
 
 
 def checkout(request):
-    return render(request,'checkout.html')
+    coupons = CouponCode.objects.values()
+    for i in coupons:
+        if i['validity'].date() >date.today():
+            i['valid'] = True
+        else:
+            i['valid'] =False
+    return render(request,'checkout.html',{'coupons':coupons})
 
 def get_user_email(access_token):
     r = requests.get(

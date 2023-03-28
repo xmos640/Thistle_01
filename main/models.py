@@ -1,4 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.utils.timezone import now
+
 
 # Create your models here.
 class Product(models.Model):
@@ -38,10 +41,18 @@ class Review(models.Model):
     user_review = models.CharField(max_length=3000,primary_key=True) 
     name = models.CharField(max_length=250,default="")
     product_name=models.CharField(max_length=100,default="")
-    comment = models. TextField(max_length=5000)
-    rate = models. IntegerField(default=0)
+    comment = models.TextField(max_length=5000)
+    rate = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self): 
         return str(self.product_name+" "+str(self.rate)+" stars") 
+    
 
+
+class CouponCode(models.Model):
+    coupon = models.CharField(max_length=100,default="")
+    used_by = models.ManyToManyField(User,default="")
+    discount= models.IntegerField(default=0)
+    validity = models.DateTimeField(default=now)
+    

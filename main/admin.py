@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Product,prod_images,Review
+from .models import Product,prod_images,Review,CouponCode
 
 class PostProdImage(admin.StackedInline):
     model=prod_images
@@ -19,4 +19,7 @@ class PostProdImage(admin.ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(admin.ModelAdmin):
+    pass
+@admin.register(CouponCode)
+class couponAdmin(admin.ModelAdmin):
     pass
