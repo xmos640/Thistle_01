@@ -105,11 +105,21 @@ def cart(request):
 
 def checkout(request):
     coupons = CouponCode.objects.values()
+    used = CouponCode.objects.filter(used_by = request.user).values()
+
     for i in coupons:
+        
+        if i in used:
+            i['not_used']=False
+        else:
+            i['not_used'] =True
+
         if i['validity'].date() >date.today():
             i['valid'] = True
         else:
             i['valid'] =False
+        i['can_be_used'] = i['not_used'] and i['valid'] 
+    print(coupons)
     return render(request,'checkout.html',{'coupons':coupons})
 
 def get_user_email(access_token):
