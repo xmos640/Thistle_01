@@ -1,8 +1,18 @@
 {% extends 'basic.html' %}
 {% block title %} Cart-Thistle {% endblock %}
+{% block css%}
+
+    #zip::-webkit-outer-spin-button,
+  #zip::-webkit-inner-spin-button,
+  #phone::-webkit-outer-spin-button,
+  #phone::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+  }
+  
+{% endblock %}
 {% block body %}
 
-<input type="hidden" name="itemsJson" id="itemsJson">
+
 <main class="lg:w-4/5 md:w-4/5 mx-auto py-8">
     <div class="w-full flex flex-row flex-wrap items-start gap-x-3">
       <!-- This is the order summary section -->
@@ -50,7 +60,7 @@
         <div class="prompt mt-2 "></div>
       </div>
       <div class="bg-gray-300 rounded p-4 mb-4 shadow-lg">
-        <div class="pb-2 text-gray-600">Make Payment of  &#8377<span id="total_price"></span>to this UPI Id and fill the given form</div>
+        <div class="pb-2 text-gray-600">Make Payment of  &#8377<span id="totalPrice"></span>to this UPI Id and fill the given form</div>
         <img src="/media/QR_code.jpg" alt="QR code" >
       </div>
       </div>
@@ -58,13 +68,13 @@
       <!-- This is the billing and shipping information section -->
       <div class="flex flex-col md:w-[65%] bg-gray-100 p-4 mb-4 shadow-md">
         <h2 class="text-lg font-bold mb-6">Billing and Shipping Information</h2>
-        <form method="POST">
-          <!-- {%csrf_token%} -->
+        <form method="post" action="/cart/">
+          {%csrf_token%}
           <div class="flex flex-col mb-8">
             <input type="text" id="name" name="name" class="border p-3" placeholder="Full Name" required>
           </div>
           <div class="flex flex-col mb-4 hidden">
-            <input type="email" id="email" name="email" class="border p-3"  placeholder="Email"required>
+            <input type="hidden" id="email" name="email" class="border p-3"  value="{{request.user.email}}">
           </div>
           <div class="flex flex-col mb-8">
             <input type="text" id="phone" name="phone" class="border p-3" placeholder="Phone Number" maxlength="13" minlength="10" required>
@@ -87,9 +97,11 @@
             <div class="p-2 text-lg font-medium text-gray-600">Please put Your UTR number here</div>
             <input type="text" id="utr" name="utr" class="border p-3" placeholder="UTR" required>
           </div>
-          <input type="text" class="hidden c" name="coupon">
+          <input type="hidden" class=" c" name="coupon">
+          <input type="hidden" name="amount" id="amount">
+          <input type="hidden" name="itemsJson" id="itemsJson">
           <div class="flex flex-col mb-8">
-            <input type="submit" class="py-4 px-2 w-full bg-indigo-700 hover:bg-indigo-500 rounded text-white font-bold cursor-pointer shadow-md shadow-gray-500 hover:shadow-none" name="submit">
+            <button type="submit" onclick="clearCart()" class="py-4 px-2 w-full bg-indigo-700 hover:bg-indigo-500 rounded text-white font-bold cursor-pointer shadow-md shadow-gray-500 hover:shadow-none" name="submit">submit</button>
             
           </div>
         </form>
@@ -146,7 +158,7 @@
 
 
 document.getElementById('discounted').innerHTML = discounted;
-$('#items_json').val(JSON.stringify(cart));
+$('#itemsJson').val(JSON.stringify(cart));
    
     
     
@@ -156,8 +168,9 @@ $('#items_json').val(JSON.stringify(cart));
       let discount=document.querySelector(".discount");
       let coupon=document.querySelector(".coupon");
       let total=document.querySelector(".total");
-      let prompt=document.querySelector(".prompt")
-      let c=document.querySelector(".c")
+      let prompt=document.querySelector(".prompt");
+      let amount=document.querySelector("#amount");
+      let c=document.querySelector(".c");
       console.log('{{coupons.0.id}}');
       let coupons_available={
         {% for i in coup %}
@@ -171,6 +184,7 @@ $('#items_json').val(JSON.stringify(cart));
       }
       let discountedValue=0
       console.log(coupons_available)
+      amount.value=(totalPrice+shipping-discountedValue).toFixed(2)
       apply.addEventListener("click",()=>{
        let value=code.value
        
@@ -184,11 +198,22 @@ $('#items_json').val(JSON.stringify(cart));
        }else{
         discountedValue=0
          coupon.classList.add('hidden')
-         
+         c.value=""
          prompt.innerHTML='<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400 " role="alert"> <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg><span class="sr-only">Info</span><div><span class="font-medium">Invalid Coupon!</span></div></div>'
        }
        total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
+       amount.value=(totalPrice+shipping-discountedValue).toFixed(2)
       })
+
+      function clearCart() {
+    cart = JSON.parse(localStorage.getItem('thistle_cart'));
+    localStorage.clear();
+    cart = {};
+
+
+}
+
+      
     //   total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
 
      
