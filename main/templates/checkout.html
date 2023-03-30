@@ -1,75 +1,106 @@
 {% extends 'basic.html' %}
 {% block title %} Cart-Thistle {% endblock %}
 {% block body %}
-<input type="hidden" name="itemsJson" id="itemsJson">
-<body>
-  <div class="mt-20 justify-center">
-      <p class = "font-bold px-4 ">*Note: [ Please confirm the payment using the Valid UTR , else your order will be declined ]</p>
-  </div>
-  <div class="container p-12 mx-auto">
-      <div class="flex flex-col w-full px-0 mx-auto md:flex-row">
-          <div class="flex flex-col md:w-full">
-              <h2 class="mb-4 font-bold md:text-xl text-heading ">Shipping Address
-              </h2>
-              <form class="justify-center w-full mx-auto" method="post" action>
-                  <div class="">
-                      <div class="space-x-0 lg:flex lg:space-x-4">
-                          <div class="w-full lg:w-1/2">
-                              <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">First
-                                  Name</label>
-                              <input name="firstName" type="text" placeholder="First Name"
-                                  class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600">
-                          </div>
-                          <div class="w-full lg:w-1/2 ">
-                              <label for="firstName" class="block mb-3 text-sm font-semibold text-gray-500">Last
-                                  Name</label>
-                              <input name="Last Name" type="text" placeholder="Last Name"
-                                  class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600">
-                          </div>
-                      </div>
-                      
-                      <div class="mt-4">
-                          <div class="w-full">
-                              <label for="Address"
-                                  class="block mb-3 text-sm font-semibold text-gray-500">Address</label>
-                              <textarea
-                                  class="w-full px-4 py-3 text-xs border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                  name="Address" cols="20" rows="4" placeholder="Address"></textarea>
-                          </div>
-                      </div>
-                      <div class="space-x-0 lg:flex lg:space-x-4">
-                          <div class="w-full lg:w-1/2">
-                              <label for="city"
-                                  class="block mb-3 text-sm font-semibold text-gray-500">City</label>
-                              <input name="city" type="text" placeholder="City"
-                                  class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600">
-                          </div>
-                          <div class="w-full lg:w-1/2 ">
-                              <label for="postcode" class="block mb-3 text-sm font-semibold text-gray-500">
-                                  Postcode</label>
-                              <input name="postcode" type="text" placeholder="Post Code"
-                                  class="w-full px-4 py-3 text-sm border border-gray-300 rounded lg:text-sm focus:outline-none focus:ring-1 focus:ring-blue-600">
-                          </div>
-                      </div>
 
-                      <div class="relative pt-3 xl:pt-6"><label for="note"
-                              class="block mb-3 text-sm font-semibold text-gray-500"> Notes
-                              (Optional)</label><textarea name="note"
-                              class="flex items-center w-full px-4 py-3 text-sm border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-blue-600"
-                              rows="4" placeholder="Notes for delivery"></textarea>
-                      </div>
-                      <div class="mt-4">
-                          <button class="w-full px-6 py-2 text-blue-200 bg-blue-600 hover:bg-blue-900">Process</button>
-                          {% for i in coupons %}
-                          {{i}}
-                          {% endfor %}
-                      </div>
-                  </div>
-              </form>
-          </div>
+<input type="hidden" name="itemsJson" id="itemsJson">
+<main class="lg:w-4/5 md:w-4/5 mx-auto py-8">
+    <div class="w-full flex flex-row flex-wrap items-start gap-x-3">
+      <!-- This is the order summary section -->
+      <div class="md:w-1/3 w-full flex flex-col">
+        <div class="bg-gray-300 flex flex-col rounded p-4 mb-4 shadow-lg">
+        <h2 class="text-lg font-bold mb-4">Order Summary</h2>
+        <!-- This is an item in the order summary -->
+        <div class="flex justify-between items-center mb-2">
+          
+        </div>
+  
+        <div class="flex justify-between items-center mb-2">
+          <p class="text-gray-600">Cart Value</p>
+          <p class="font-bold"><span> &#8377</span>
+            <span id='total_mrp'></span></p>
+        </div>
+        <!-- This is another item in the order summary -->
+        <div class="flex justify-between items-center mb-2 0">
+          <p class="text-gray-600">Shipping</p>
+          <p class="font-bold"><span> &#8377</span>
+            <span id='shipping'>70</span></p>
+        </div>
+        <div class="flex justify-between items-center mb-2 0 " >
+          <p class="text-gray-600">Discount</p>
+          <p class="font-bold"><span> - &#8377</span>
+            <span id="discounted"></span></p>
+        </div>
+        <div class="flex justify-between items-center mb-4 0 coupon hidden" >
+          <p class="text-gray-600">Coupon Discount</p>
+          <p class="font-bold"><span> - &#8377</span>
+            <span class="discount"></span></p>
+        </div>
+        <!-- This is the total cost of the order -->
+        <div class="flex justify-between items-center border-t-2 py-2 border-gray-400">
+          <p class="font-bold">Total</p>
+          <p class="font-bold "><span> &#8377</span>
+            <span id='totalPrice' class="total"></span></p>
+        </div>
       </div>
-  </div>
-</body>
+      <div class="bg-gray-300 rounded p-4 mb-4  shadow-lg">
+        <div class="flex flex-row">
+        <input type="text" id="code" name="coupon" class="border p-2" placeholder="Coupon Code" required>
+        <button class=" px-2 w-full bg-indigo-700 hover:bg-indigo-500 rounded text-white cursor-pointer apply-coupon">Apply Coupon</button>
+        </div>
+        <div class="prompt mt-2 "></div>
+      </div>
+      <div class="bg-gray-300 rounded p-4 mb-4 shadow-lg">
+        <div class="pb-2 text-gray-600">Make Payment of  &#8377<span id="total_price"></span>to this UPI Id and fill the given form</div>
+        <img src="/media/QR_code.jpg" alt="QR code" >
+      </div>
+      </div>
+  
+      <!-- This is the billing and shipping information section -->
+      <div class="flex flex-col md:w-[65%] bg-gray-100 p-4 mb-4 shadow-md">
+        <h2 class="text-lg font-bold mb-6">Billing and Shipping Information</h2>
+        <form method="POST">
+          <!-- {%csrf_token%} -->
+          <div class="flex flex-col mb-8">
+            <input type="text" id="name" name="name" class="border p-3" placeholder="Full Name" required>
+          </div>
+          <div class="flex flex-col mb-4 hidden">
+            <input type="email" id="email" name="email" class="border p-3"  placeholder="Email"required>
+          </div>
+          <div class="flex flex-col mb-8">
+            <input type="text" id="phone" name="phone" class="border p-3" placeholder="Phone Number" maxlength="13" minlength="10" required>
+          </div>
+          <div class="flex flex-col mb-8">
+            
+            <textarea rows="3" id="address" name="address" class="border p-3" placeholder="Address" required></textarea>
+          </div>
+          <div class="flex flex-col mb-8">
+            <input type="text" id="city" name="city" class="border p-3" placeholder="City" required>
+          </div>
+          <div class="flex flex-row gap-x-3 mb-8">
+            <input type="text" id="state" name="state" class="border p-3 w-[56%]" placeholder="State" required>
+            <input type="number" id="zip" name="postal_code" class="border p-3 w-[43%]" placeholder="Pin code" maxlength="6" required>
+          </div>
+          <div class="flex flex-col mb-6">
+            <textarea rows="3" id="instructions" name="instructions" class="border p-3" placeholder="Instructions(If Any)"></textarea>
+          </div>
+          <div class="flex flex-col mb-8">
+            <div class="p-2 text-lg font-medium text-gray-600">Please put Your UTR number here</div>
+            <input type="text" id="utr" name="utr" class="border p-3" placeholder="UTR" required>
+          </div>
+          <input type="text" class="hidden c" name="coupon">
+          <div class="flex flex-col mb-8">
+            <input type="submit" class="py-4 px-2 w-full bg-indigo-700 hover:bg-indigo-500 rounded text-white font-bold cursor-pointer shadow-md shadow-gray-500 hover:shadow-none" name="submit">
+            
+          </div>
+        </form>
+      </div>
+      </div>
+    </main>
+  
+    
+                          
+                   
+
 {% endblock %}
 
 
@@ -88,7 +119,7 @@
     var sum = 0;
     
     var shipping = parseInt(document.getElementById('shipping').innerHTML);
-    totalPrice = shipping;
+    totalPrice = 0;
     var totalMrp = 0;
     var subtotal = 0;
     if ($.isEmptyObject(cart)) {
@@ -97,18 +128,74 @@
         $('#items').append(mystr);
     } else {
         for (item in cart) {
+            let qty = cart[item][0];
+            let price = cart[item][2];
+            let mrp = cart[item][3]
             sum = sum + qty;
             totalPrice = totalPrice + qty*price
             subtotal = subtotal + qty*price
             totalMrp = totalMrp + qty* mrp
           }
-
-
     }
-    // document.getElementById('cart').innerHTML = sum;
-    document.getElementById('totalPrice').innerHTML = totalPrice;
-    document.getElementById('subtotal').innerHTML = subtotal;
-    $('#itemsJson').val(JSON.stringify(cart));
+    
+    document.getElementById('totalPrice').innerHTML = totalPrice+shipping;
+    document.getElementById('total_mrp').innerHTML = totalMrp;
+    let discounted = totalMrp-subtotal;
+
+
+
+
+document.getElementById('discounted').innerHTML = discounted;
+$('#items_json').val(JSON.stringify(cart));
+   
+    
+    
+      //JS for Coupons
+      let code=document.querySelector("#code");
+      let apply=document.querySelector(".apply-coupon");
+      let discount=document.querySelector(".discount");
+      let coupon=document.querySelector(".coupon");
+      let total=document.querySelector(".total");
+      let prompt=document.querySelector(".prompt")
+      let c=document.querySelector(".c")
+      console.log('{{coupons.0.id}}');
+      let coupons_available={
+        {% for i in coup %}
+        {{i.coupon}}:{
+            id:'{{i.id}}',
+            discount:'{{i.discount}}',
+            can_be_used:'{{i.can_be_used}}'     
+        },
+    
+       {% endfor %}
+      }
+      let discountedValue=0
+      console.log(coupons_available)
+      apply.addEventListener("click",()=>{
+       let value=code.value
+       
+       if (coupons_available.hasOwnProperty(value) && coupons_available[value].can_be_used==='True'){
+         coupon.classList.remove("hidden")
+         discountedValue=totalPrice*(coupons_available[value].discount/100)
+         discount.textContent=`${(discountedValue).toFixed(2)}`
+         c.value=value
+         console.log(c.value)
+         prompt.innerHTML='<div class="flex p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:text-green-400" role="alert"><svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg><span class="sr-only">Info</span><div><span class="font-medium">Coupon Applied!</span></div></div>'
+       }else{
+        discountedValue=0
+         coupon.classList.add('hidden')
+         
+         prompt.innerHTML='<div class="flex p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:text-red-400 " role="alert"> <svg aria-hidden="true" class="flex-shrink-0 inline w-5 h-5 mr-3" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg><span class="sr-only">Info</span><div><span class="font-medium">Invalid Coupon!</span></div></div>'
+       }
+       total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
+      })
+    //   total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
+
+     
+     
+     
+     
+     
 
   </script>
   {% endblock %}

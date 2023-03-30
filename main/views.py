@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Product,prod_images,Review,CouponCode
+from .models import Product,prod_images,Review,CouponCode,Orders
 from django.contrib.auth.models import User
 from django.contrib.auth  import logout
 import requests
@@ -119,8 +119,39 @@ def checkout(request):
         else:
             i['valid'] =False
         i['can_be_used'] = i['not_used'] and i['valid'] 
-    print(coupons)
-    return render(request,'checkout.html',{'coupons':coupons})
+    if request.method == "POST":
+        itemsJson = request.POST.get('itemsJson', '')
+        name = request.POST.get('name','')
+        amount = request.POST.get('amount','')
+        email = request.POST.get('email','')
+        address = request.POST.get('address','') + "  "+request.POST.get('address2','')
+        city = request.POST.get('city','')
+        postal_code = request.POST.get('postal_code','')
+        phone = request.POST.get('phone','')
+        payment_ref = request.POST.get('utr','')
+        instructions = request.POST.get('instructions','')
+        coupon_used = request.POST.get('coupon','') 
+        this_coupon = CouponCode.objects.filter(coupon = this_coupon)
+        this_coupon.used_by.add(request.user)
+        order=Orders(items_json=itemsJson,
+                     name=name,
+                     email=email,
+                     phone_number=phone,
+                     address=address,
+                     city=city,
+                     
+                     postal_code=postal_code,
+                     amount=amount,
+                     coupon_used = coupon_used,
+                     instructions = instructions,
+                     payment_conf = 0,
+                     payment_ref=payment_ref,
+                     delivered = 0,
+                     dispatched = 0,
+                     link = "0",
+                     declined=0)
+        order.save()
+    return render(request,'checkout.html',{'coup':coupons})
 
 def get_user_email(access_token):
     r = requests.get(
