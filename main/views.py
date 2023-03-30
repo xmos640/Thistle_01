@@ -11,7 +11,7 @@ import json
 
 def index(request):
     allProds = Product.objects.values()
-    print(allProds)
+    
     
     
     params = {'allProds':allProds}
