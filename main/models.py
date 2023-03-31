@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils.timezone import now
+from datetime import date
 
 
 # Create your models here.
@@ -57,8 +58,9 @@ class CouponCode(models.Model):
     validity = models.DateTimeField(default=now)
     
 class Orders(models.Model):
-    order_id = models.AutoField(primary_key=True)
+
     items_json = models.CharField(max_length=2000, default="")
+    cart=models.CharField(max_length=5000,default="")
     amount = models.IntegerField(default=0)
     name = models.CharField(max_length=100 , default="")
     email = models.CharField(max_length=300, default="")
@@ -68,11 +70,11 @@ class Orders(models.Model):
     coupon_used = models.CharField(max_length=50,default="")
     instructions = models.CharField(max_length=2000,default="")
     city = models.CharField(max_length=200,default="")
-    payment_ref =models.CharField(max_length=25,default='')
+    payment_ref =models.CharField(max_length=25,default='',primary_key=True)
     delivered = models.IntegerField(default=0)
     dispatched = models.IntegerField(default=0)
     payment_conf = models.IntegerField(default=0)
-    timestamp= models.DateField(auto_now_add= True)
+    timestamp= models.DateField(default=now)
     link = models.CharField(max_length=5000,default='nil')
     declined = models.IntegerField(default=0)
     delivery_date = models.DateField(default=now)

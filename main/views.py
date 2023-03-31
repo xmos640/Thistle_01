@@ -101,55 +101,7 @@ def productview(request,myid):
 
 
 def cart(request):
-    if request.method == "POST":
-        itemsJson = request.POST.get('itemsJson', '')
-        name = request.POST.get('name','')
-        amount = request.POST.get('amount','')
-        email = request.POST.get('email','')
-        address = request.POST.get('address','')
-        city = request.POST.get('city','')
-        postal_code = request.POST.get('postal_code','')
-        phone = request.POST.get('phone','')
-        payment_ref = request.POST.get('utr','')
-        instructions = request.POST.get('instructions','')
-        coupon_used = request.POST.get('coupon','') 
-       
-        items = (json.loads(itemsJson)).values()
-        cart = []
-        for i in items:
-            item_details = [i[1],i[0]]
-            cart.append(item_details)
-            
-        try:
-            this_coupon = CouponCode.objects.filter(coupon = coupon_used)[0]
-        except:
-            pass
-        today = datetime.today()
-        delivery_date = today + timedelta(days=7)
-        order=Orders(items_json=cart,
-                     name=name,
-                     email=email,
-                     phone_number=phone,
-                     Address=address,
-                     city=city,
-                     
-                     postal_code=postal_code,
-                     amount=int(float(amount)),
-                     coupon_used = coupon_used+" _ ",
-                     instructions = instructions+" _ ",
-                     payment_conf = 0,
-                     payment_ref=payment_ref,
-                     delivered = 0,
-                     dispatched = 0,
-                     link = "0",
-                     declined=0,
-                     delivery_date=delivery_date,
-                     )
-        order.save()
-        try:
-            this_coupon.used_by.add(request.user)
-        except:
-            pass
+    
     
         
     return render(request,'cart.html')
@@ -157,7 +109,10 @@ def cart(request):
 
 def checkout(request):
     coupons = CouponCode.objects.values()
-    used = CouponCode.objects.filter(used_by = request.user).values()
+    try:
+        used = CouponCode.objects.filter(used_by = request.user).values()
+    except:
+        used = []
 
     for i in coupons:
         
@@ -210,7 +165,8 @@ def orders(request):
             pass
         today = datetime.today()
         delivery_date = today + timedelta(days=7)
-        order=Orders(items_json=cart,
+        order=Orders(items_json=itemsJson,
+                     cart=cart,
                      name=name,
                      email=email,
                      phone_number=phone,
@@ -234,3 +190,27 @@ def orders(request):
             this_coupon.used_by.add(request.user)
         except:
             pass
+    
+    
+    this_user = 0
+    try:
+        this_user = request.user.email
+        orders = Orders.objects.filter(email = this_user).values()
+
+        allOrders= [order for order in orders]
+        allOrders=allOrders[::-1]
+        print(allOrders,1)
+        for i in allOrders:
+            items = (json.loads(i['items_json']))
+            i['items_json']=items.values()
+            
+            
+        count = len(allOrders)
+        
+    except Exception as e:
+        allOrders = False
+        count = False
+        
+    
+    params = {'allOrders':allOrders,'count':count}
+    return render(request, 'orders.html', params)

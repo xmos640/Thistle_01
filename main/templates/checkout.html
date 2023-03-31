@@ -68,7 +68,7 @@
       <!-- This is the billing and shipping information section -->
       <div class="flex flex-col md:w-[65%] bg-gray-100 p-4 mb-4 shadow-md">
         <h2 class="text-lg font-bold mb-6">Billing and Shipping Information</h2>
-        <form method="post" action="/cart/">
+        <form method="post" action="/orders/">
           {%csrf_token%}
           <div class="flex flex-col mb-8">
             <input type="text" id="name" name="name" class="border p-3" placeholder="Full Name" required>

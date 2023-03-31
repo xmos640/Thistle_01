@@ -1,0 +1,54 @@
+{% extends 'basic.html' %}
+{% block title %} Orders-Thistle {% endblock %}
+  {% block body %}
+  {% if allOrders %}
+  <main class="w-full min-h-[33vh] p-4 md:px-0 md:py-8">
+    <div class="md:w-3/5 mx-auto flex flex-col">
+      <h1 class="text-3xl border-b-2 mb-4 border-purple-300 p-2">Your Orders</h1>
+      <!-- This is an order -->
+      {% for i in allOrders %}
+      <div class="flex items-center bg-white rounded shadow-md mb-4 p-4">
+  
+        <div class="w-3/5">
+          <a href="#"><h2 class="font-bold">Order </h2></a>
+          <p class="text-gray-600">Placed {{i.timestamp}}</p>
+        </div>
+        
+        <div class="w-1/5 md:text-right">
+          <p class="font-bold">&#8377 {{i.amount}}</p>
+        </div>
+        {% if i.delivered == 1 %}
+        <div class="w-1/5 md:text-right text-center">
+            
+            <p class="text-yellow-600">Delivered</p>
+          </div>
+        {% elif i.dispatched == 1 %}
+        <div class="w-1/5 md:text-right text-center">
+            
+            <p class="text-yellow-600">On the way</p>
+          </div>
+        {% elif i.payment_conf == 1 %}
+        <div class="w-1/5 md:text-right text-center">
+            <!-- <p class="text-green-600">Delivered</p> -->
+            <p class="text-yellow-600">Order Confirmed</p>
+          </div>
+        {% else %}
+        <div class="w-1/5 md:text-right text-center">
+            <!-- <p class="text-green-600">Delivered</p> -->
+            <p class="text-yellow-600">Yet to be confirmed</p>
+          </div>
+        {% endif %}
+        
+        
+      </div>
+      {% endfor %}
+      {% else %}
+      This is an error
+  {% endif %}
+      <!-- This is another order -->
+      
+    </div>
+  </main>
+  {% endblock %}
+
+
