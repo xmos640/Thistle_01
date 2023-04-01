@@ -72,16 +72,20 @@ class Orders(models.Model):
     instructions = models.CharField(max_length=2000,default="")
     city = models.CharField(max_length=200,default="")
     payment_ref =models.CharField(max_length=25,default='',primary_key=True)
-    delivered = models.IntegerField(default=0)
-    dispatched = models.IntegerField(default=0)
-    payment_conf = models.IntegerField(default=0)
+    delivered = models.BooleanField(default=False)
+    dispatched = models.BooleanField(default=False)
+    payment_conf = models.BooleanField(default=False)
     timestamp= models.DateField(default=now)
     link = models.CharField(max_length=5000,default='nil')
-    declined = models.IntegerField(default=0)
+    declined = models.BooleanField(default=False)
     delivery_date = models.DateField(default=now)
     def __str__(self): 
         return str(self.name + str(self.amount))
     
-
+class announcement(models.Model):
+    text= models.CharField(max_length=5000,default="")
+    active = models.BooleanField(default=True)
+    def __str__(self): 
+        return self.text
 
     
