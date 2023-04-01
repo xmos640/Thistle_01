@@ -78,7 +78,7 @@
     var subtotal = 0;
     if ($.isEmptyObject(cart)) {
         //if object is empty
-        mystr = `<p>Your cart is empty, please add some items to your cart before checking out!</p>`
+        mystr = `<h3 class="mb-8 text-2xl p-5 text-gray-500 font-bold">There are no orders placed by you as of now, <a href="/" class="text-blue-400">continue shopping</a></h3>`
         $('#items').append(mystr);
         document.getElementById('bill').classList.add("hidden");
 
