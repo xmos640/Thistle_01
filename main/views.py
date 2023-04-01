@@ -20,18 +20,7 @@ def index(request):
 
 
 #==================================== accept feedback ====================================================================================
-#  if request.method == "GET":
-#         try:
-#             name = request.GET.get('name','')
-#             email = request.GET.get('email','')
-#             comment = request.GET.get('review','')
-#             rating = request.GET.get('rating','')
-#             user_review = str(myid) + email
-#             product_name = request.GET.get('product_name','')
-#             feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,product_name=product_name,user_review=user_review)
-#             feedback.save()
-#         except Exception as e:
-#             print(e)
+ 
 
 
 
@@ -39,17 +28,31 @@ def index(request):
 
 
 def productview(request,myid):
-
+    if request.method == "GET":
+        try:
+            name = request.GET.get('name','')
+            email = request.GET.get('email','')
+            comment = request.GET.get('review','')
+            rating = request.GET.get('rating','')
+            user_review = str(myid) + email
+            product_name = request.GET.get('product_name','')
+            feedback=Review(name=name,email=email,comment=comment,rate=rating,product=myid ,product_name=product_name,user_review=user_review)
+            feedback.save()
+        except Exception as e:
+            print(e)
     # fetch details
     product = Product.objects.filter(product_id=myid).values()
     photos = prod_images.objects.filter(prod=myid)
     
     this_reviews = Review.objects.filter(product=myid).values()
 
+
     
     # check user feedback
     emails = [i['email'] for i in this_reviews]
     
+    
+
 
     try:
 
@@ -66,7 +69,7 @@ def productview(request,myid):
         logged_in = False
         done=False
         user_review=False
-
+    
     # calculate reviews
     total = 0
     ratings= 0
@@ -83,6 +86,7 @@ def productview(request,myid):
     stars = [ 1  if i<star_count else 0 for i in range(5) ]
     
     this_reviews=this_reviews[::-1]
+    
     return render(request,'prodview.html',{
         'product':product[0],
         'product_id':myid,
@@ -155,9 +159,12 @@ def orders(request):
        
         items = (json.loads(itemsJson)).values()
         cart = []
+        number_of_items = 0
         for i in items:
             item_details = [i[1],i[0]]
+            number_of_items +=i[0]
             cart.append(item_details)
+
             
         try:
             this_coupon = CouponCode.objects.filter(coupon = coupon_used)[0]
@@ -165,8 +172,10 @@ def orders(request):
             pass
         today = datetime.today()
         delivery_date = today + timedelta(days=7)
+        
         order=Orders(items_json=itemsJson,
                      cart=cart,
+                     number_of_items=number_of_items,
                      name=name,
                      email=email,
                      phone_number=phone,
@@ -175,8 +184,8 @@ def orders(request):
                      
                      postal_code=postal_code,
                      amount=int(float(amount)),
-                     coupon_used = coupon_used,
-                     instructions = instructions,
+                     coupon_used = coupon_used+".",
+                     instructions = instructions+".",
                      payment_conf = 0,
                      payment_ref=payment_ref,
                      delivered = 0,

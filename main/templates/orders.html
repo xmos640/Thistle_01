@@ -10,32 +10,37 @@
       <div class="flex items-center bg-white rounded shadow-md mb-4 p-4">
   
         <div class="w-3/5">
-          <a href="#"><h2 class="font-bold">Order </h2></a>
+          <a href="#"><h2 class="font-bold">Ordered items: {{i.number_of_items}}</a></h2>
           <p class="text-gray-600">Placed {{i.timestamp}}</p>
         </div>
         
         <div class="w-1/5 md:text-right">
           <p class="font-bold">&#8377 {{i.amount}}</p>
         </div>
-        {% if i.delivered == 1 %}
+        {% if i.declined == 1 %}
+        <div class="w-1/5 md:text-right text-center">
+          <!-- <p class="text-green-600">Delivered</p> -->
+          <p class="text-red-800 font-bold">Order Declined</p>
+        </div>
+        {% elif i.delivered == 1 %}
         <div class="w-1/5 md:text-right text-center">
             
-            <p class="text-yellow-600">Delivered</p>
+            <p class="text-green-600 font-bold">Delivered</p>
           </div>
         {% elif i.dispatched == 1 %}
         <div class="w-1/5 md:text-right text-center">
             
-            <p class="text-yellow-600">On the way</p>
+            <p class="text-yellow-600 font-bold">On the way</p>
           </div>
         {% elif i.payment_conf == 1 %}
         <div class="w-1/5 md:text-right text-center">
             <!-- <p class="text-green-600">Delivered</p> -->
-            <p class="text-yellow-600">Order Confirmed</p>
+            <p class="text-blue-600 font-bold ">Order Confirmed</p>
           </div>
         {% else %}
         <div class="w-1/5 md:text-right text-center">
             <!-- <p class="text-green-600">Delivered</p> -->
-            <p class="text-yellow-600">Yet to be confirmed</p>
+            <p class="text-gray-500 font-bold">Yet to be confirmed</p>
           </div>
         {% endif %}
         

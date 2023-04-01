@@ -117,6 +117,38 @@
 
         
         </div>
+        <div class="p-5   w-full lg:w-1/2">
+          <!-- USER REVIEW ================= -->
+          {% if logged_in %}
+          {% if done %}
+          
+            
+          {% else %}
+           WRITE YOUR REVIEW
+           <!-- <img src="{% static '20221216_231612_06.jpg' %}" alt=""> -->
+           <!-- "{% static '20221216_231612_06.jpg' %}" -->
+      
+          <form class="py-3" actiion="/products/{{product.product_id}}" method="get">
+            <input type="hidden" class="form-control" id="name" name = "name" value="{{request.user}}">
+              <input type="hidden" class="form-control" id="email" name="email" value="{{request.user.email}}">
+              <input type="hidden"  name="product_name" id="pr_name" value="{{product.product_name}}">
+          <textarea placeholder="Your Review" name="review" class="border-2 border-purple-300 w-full text-md p-2" rows="4"></textarea>
+          
+          <div class="py-3"> YOUR RATING:&nbsp 
+            <input type="radio" name="rating" id="star1" value="1" class="hidden"><label for="star1"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
+            <input type="radio" name="rating" id="star2" value="2" class="hidden"><label for="star2"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
+            <input type="radio" name="rating" id="star3" value="3" class="hidden"><label for="star3"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
+            <input type="radio" name="rating" id="star4" value="4" class="hidden"><label for="star4"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
+            <input type="radio" name="rating" id="star5" value="5" class="hidden"><label for="star5"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
+          </div>
+      
+            <button type="submit" class="bg-indigo-500 text-white px-5 py-2 border-2 rounded hover:bg-indigo-600 cursor-pointer">Submit review</button>
+          </form>
+          {% endif %}
+          {% else %}
+          please login to review this item
+          {% endif %}
+        
     </div>
   </div>
 
@@ -300,17 +332,6 @@ $('.divpr').on("click", "button.plus", function() {
 
 
 
-// ------------------favorite----------------------
-const fav=document.querySelector(".fav");
-let like=false;
-  fav.addEventListener('click',()=>{
-    like=!like;
-    if(like===true){
-      fav.classList.add("text-red-700")
-    }else{fav.classList.remove("text-red-700")}
-    
-  })
-   
-  
+
 </script>
 {% endblock %}

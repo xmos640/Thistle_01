@@ -44,7 +44,7 @@ class Review(models.Model):
     product_name=models.CharField(max_length=100,default="")
     comment = models.TextField(max_length=5000)
     rate = models.IntegerField(default=0)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=now)
 
     def __str__(self): 
         return str(self.product_name+" "+str(self.rate)+" stars") 
@@ -61,6 +61,7 @@ class Orders(models.Model):
 
     items_json = models.CharField(max_length=2000, default="")
     cart=models.CharField(max_length=5000,default="")
+    number_of_items = models.IntegerField(default=0)
     amount = models.IntegerField(default=0)
     name = models.CharField(max_length=100 , default="")
     email = models.CharField(max_length=300, default="")
