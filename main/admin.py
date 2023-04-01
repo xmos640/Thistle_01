@@ -31,3 +31,4 @@ class orderAdmin(admin.ModelAdmin):
 class annoAdmin(admin.ModelAdmin):
     pass
 
+

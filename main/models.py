@@ -8,7 +8,7 @@ from datetime import date
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
     product_name = models.CharField(max_length=50)
-    category = models.CharField(max_length=50, default="")
+    category = models.CharField(max_length=50, default="",choices=[['bodyoils','body oils'],['bodywash','body wash']])
     subcategory = models.CharField(max_length=50,default="")
     size = models.CharField(max_length=200,default="")
     mrp = models.IntegerField( default=0)
@@ -26,6 +26,17 @@ class Product(models.Model):
     def __str__(self):
         return self.product_name
     
+
+
+
+
+
+
+
+
+
+
+
 class prod_images(models.Model):
     prod = models.ForeignKey(Product, default=None, on_delete=models.CASCADE)
     images = models.FileField(upload_to = 'images/')

@@ -250,5 +250,21 @@ def orderview(request,myid):
 
     params = {'order':order,'announcement':announcement1}
     return render(request, 'orderview.html', params)
+
+
+
+
+
+def categoryview(request,category):
+    category_prods = Product.objects.filter(category=category ).values()
+    for i in category_prods:
+        disc= (i['mrp']-i['sale_price'])/(i['mrp'])*100
+        i['discount'] = ( f'{disc:.2f}')
+        
+    
+    params = {'allProds':category_prods,'announcement':announcement1,'category_now' :category}
+    
+
+    return render(request,'category.html',params)
     
 

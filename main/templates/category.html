@@ -2,5 +2,35 @@
 {% block title %} Cart-Thistle {% endblock %}
 
   {% block body %}
-  
+  <main class="container mx-auto py-8 md:px-10 px-4">
+    <section class="text-gray-600 min-h-[36vh] body-font">
+      <div class="container px-5 py-10 mx-auto">
+        <div class="flex flex-wrap -m-4">
+            {% for i in allProds %}
+            <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
+              <a class="block relative h-48 rounded overflow-hidden" href="/products/{{i.product_id}}"> 
+                <img alt="ecommerce" id='imgpr{{i.id}}'src='/media/{{i.image}}' class="object-cover object-center w-full h-full block" src="/media/{{i.image}}">
+              </a>
+              <a href="/products/{{i.product_id}}"> 
+              <div class="mt-4 px-2">
+                <h3 class="text-green-700 text-lg tracking-widest title-font mb-1">{{i.discount}}% off</h3>
+                <div class="flex flex-row items-end">
+                <h2 class="text-gray-900 title-font text-lg font-medium">{{i.product_name}} - {{i.size}}</h2>
+                <div class="ml-auto">
+                <span class="title-font font-medium text-lg text-gray-900 " >
+                  &#8377 {{i.sale_price}}</span>
+              <span  class="line-through font-medium text-lg text-gray-600 pr-3"> &#8377 {{i.mrp}} </span> 
+                </div>
+                </div>
+              <!-- <span class = "text-green-600 font-semibold"> {{i.discount}}% off</span> -->
+              </div>
+              </a>
+            </div>
+            {% endfor %}
+          
+          
+        </div>
+      </div>
+    </section>
+  </main>
   {% endblock %}

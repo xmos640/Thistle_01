@@ -41,12 +41,12 @@
             </svg>
             <span class="ml-3 text-2xl font-bold font-mono">Thistle</span>
           </a>
-          <div class="ml-auto flex items-center ">
+          <div class="ml-auto flex items-center relative">
           <a href="/cart"><button class=" border-0  px-3 focus:outline-none hover:scale-110 rounded text-base md:mt-0 text-white transition ease-out delay-150 duration-500"><i class="fa-solid fa-bag-shopping fa-lg"></i>
           </button></a>
           {% if user.is_authenticated%}
-          <button class=" border-0 md:hidden px-3 focus:outline-none hover:scale-110 rounded text-base md:mt-0 transition ease-linear duration-500" onclick="menu()"><i class="fa-solid fa-bars fa-lg"></i></button>
-          <div class="flex md:flex-row flex-col gap-x-3 md:static absolute right-[-12px] bg-purple-900 md:p-0 p-4 md:border-none border-2 border-black top-[120%] options md:flex hidden gap-y-3">
+          <button class=" border-0 md:hidden px-3 focus:outline-none hover:scale-110 rounded text-base md:mt-0 transition ease-linear duration-500 menu"><i class="fa-solid fa-bars fa-lg"></i></button>
+          <div class="flex md:flex-row flex-col gap-x-3 md:static absolute right-[-12px] top-[125%] bg-purple-900 md:p-0 p-4 md:border-none border-2 border-purple-700 account md:flex gap-y-3 z-10 hidden">
             <div><a href="/orders" ><button class="hover:scale-110  transition ease-linear duration-300 ">Orders</button></a></div>
             <div><a href="/contact" ><button class="hover:scale-110 transition ease-linear duration-300" > Contact us</button></a></div>
             <div><a href="/logout"><button class="hover:scale-110 transition ease-linear duration-300"> Log Out </button></a></div>
@@ -61,10 +61,10 @@
          </div>
         </div>
         <nav class="md:ml-auto bg-purple-900 flex flex-wrap flex-row md:opacity-100  md:mt-0 nav text-base overflow-hidden items-center md:justify-evenly justify-center ">
-          <a href='category/oil' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500"href="#">BODY OILS</a>
-          <a href= 'category/wash' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500"href="#">BODY WASH</a>
-          <a href= 'category/category3' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500"href="#">CATEGORY 3</a>
-          <a href= 'category/category4' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500"href="#">CATEGORY 4</a>
+          <a href='/categories/bodyoils' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">BODY OILS</a>
+          <a href= '/categories/bodywash' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">BODY WASH</a>
+          <a href= '/categories/category3' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">CATEGORY 3</a>
+          <a href= '/categories/category4' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">CATEGORY 4</a>
         </nav>
         <div class="bg-purple-700 text-center p-2 w-full uppercase font-bold "><span class="animate-pulse text-yellow-200">{{announcement.text}}</span></div>
       </header>
@@ -192,21 +192,24 @@
         </div>
       </footer>
 </body>
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
 <script>
-const options=document.querySelector(".options");
-let meh=false;
-function menu(){
+const account=document.querySelector(".account");
+const menu=document.querySelector(".menu");
+let meh = false;
+menu.addEventListener('click',()=>{
   meh=!meh
   if (meh===true){
-    options.classList.remove("hidden")
+    account.classList.remove("hidden")
+
   }
-  else{options.classList.add("hidden")}
-}
+  else{account.classList.add("hidden")}
+})
 
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     {% block js %}
 
 
