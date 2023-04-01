@@ -61,11 +61,11 @@
               </div>
             </div>
           </div>
-          <div class="mt-5 flex items-center w-full ">
+          <div class="mt-5 flex flex-row items-end w-full ">
             <span class="title-font font-medium text-2xl text-gray-900" >
-                &#8377<span id="price" class="pr-2">{{product.sale_price}}</span>
-                <span  class="line-through text-xl text-gray-600 pr-3"> &#8377<span id="mrp"> {{product.mrp}} </span></span> </span>
-            <span id="discount" class=""></span>
+                &#8377<span id="price" class="pr-2">{{product.sale_price}}</span></span>
+            <span  class="line-through font-medium text-xl text-gray-600 pr-3"> &#8377<span id="mrp"> {{product.mrp}} </span></span> 
+            <span id="discount" class=""> {{product.discount}}% off</span>
            </div>
            <div class="flex flex-row items-center">
             {% if product.availabilty %}
@@ -116,7 +116,7 @@
           {% endfor %} 
         </div>
         {% else %}
-        <h3 class="mb-8 text-2xl p-5 text-gray-500 font-bold">Be the first one to write a review for this product</h3>
+        <h3 class="mb-8 text-2xl p-5 text-gray-500 font-medium">Be the first one to write a review for this product</h3>
         {% endif %}
         
         </div>
@@ -220,9 +220,8 @@ rates.forEach((rate,index)=>{
 })
 })
 
-const disc = ('{{product.mrp}}' - '{{product.sale_price}}')/'{{product.mrp}}'*100;
-console.log(disc)
-document.getElementById('discount').innerHTML=disc.toFixed(2)+"%";
+
+
 
 
 // Adding cart items  ---------

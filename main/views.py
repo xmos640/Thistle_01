@@ -17,7 +17,10 @@ print(announcement)
 def index(request):
     allProds = Product.objects.values()
     
-    
+    for i in allProds:
+        disc= (i['mrp']-i['sale_price'])/(i['mrp'])*100
+        i['discount'] = ( f'{disc:.2f}')
+        
     
     params = {'allProds':allProds,'announcement':announcement1}
     return render(request, 'index.html', params)
@@ -47,6 +50,11 @@ def productview(request,myid):
             print(e)
     # fetch details
     product = Product.objects.filter(product_id=myid).values()
+    for i in product:
+        disc= (i['mrp']-i['sale_price'])/(i['mrp'])*100
+        i['discount'] = ( f'{disc:.2f}')
+        print(i)
+
     photos = prod_images.objects.filter(prod=myid)
     
     this_reviews = Review.objects.filter(product=myid).values()
