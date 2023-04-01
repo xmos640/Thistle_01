@@ -223,7 +223,8 @@ def orders(request):
 
 
 def orderview(request,myid):
-    order = Orders.objects.filter(payment_ref=myid).values()[0]
+    print(myid)
+    order = Orders.objects.filter(payment_ref=str(myid)).values()[0]
     items = (json.loads(order['items_json']))
     order['items_json']=items.values()
     params = {'order':order}
