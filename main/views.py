@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from .models import Product,prod_images,Review,CouponCode,Orders
+from .models import Product,prod_images,Review,CouponCode,Orders,announcement
 from django.contrib.auth.models import User
 from django.contrib.auth  import logout
 import requests
@@ -7,6 +7,11 @@ from datetime import date,datetime,timedelta
 import json
 
 # Create your views here.
+try:
+    announcement1 = announcement.objects.values()[0]
+except:
+    announcement1 = False
+print(announcement)
 
 
 def index(request):
@@ -14,7 +19,7 @@ def index(request):
     
     
     
-    params = {'allProds':allProds}
+    params = {'allProds':allProds,'announcement':announcement1}
     return render(request, 'index.html', params)
 
 
@@ -96,6 +101,7 @@ def productview(request,myid):
         'stars':stars,
         'logged_in':logged_in,
         'user_review':user_review,
+        'announcement':announcement1
     })
 
 
@@ -105,7 +111,8 @@ def productview(request,myid):
 
 
 def cart(request):
-    return render(request,'cart.html')
+    params={'announcement':announcement1}
+    return render(request,'cart.html',params)
 
 
 def checkout(request):
@@ -128,7 +135,7 @@ def checkout(request):
             i['valid'] =False
         i['can_be_used'] = i['not_used'] and i['valid'] 
     
-    return render(request,'checkout.html',{'coup':coupons})
+    return render(request,'checkout.html',{'coup':coupons,'announcement':announcement1})
 
 def get_user_email(access_token):
     r = requests.get(
@@ -218,7 +225,7 @@ def orders(request):
         count = False
         
     
-    params = {'allOrders':allOrders,'count':count}
+    params = {'allOrders':allOrders,'count':count,'announcement':announcement1}
     return render(request, 'orders.html', params)
 
 
@@ -227,7 +234,12 @@ def orderview(request,myid):
     order = Orders.objects.filter(payment_ref=str(myid)).values()[0]
     items = (json.loads(order['items_json']))
     order['items_json']=items.values()
-    params = {'order':order}
+    order['dispatched']=int(order['dispatched'])
+    order['delivered']=int(order['delivered'])
+    order['declined']=int(order['declined'])
+    order['payment_conf']=int(order['payment_conf'])
+
+    params = {'order':order,'announcement':announcement1}
     return render(request, 'orderview.html', params)
     
 

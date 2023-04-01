@@ -30,3 +30,4 @@ class orderAdmin(admin.ModelAdmin):
 @admin.register(announcement)
 class annoAdmin(admin.ModelAdmin):
     pass
+
