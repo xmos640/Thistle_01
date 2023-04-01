@@ -50,7 +50,7 @@ def productview(request,myid):
     photos = prod_images.objects.filter(prod=myid)
     
     this_reviews = Review.objects.filter(product=myid).values()
-
+    
 
     
     # check user feedback
@@ -101,7 +101,8 @@ def productview(request,myid):
         'stars':stars,
         'logged_in':logged_in,
         'user_review':user_review,
-        'announcement':announcement1
+        'announcement':announcement1,
+        'num_revs' :len(this_reviews)
     })
 
 

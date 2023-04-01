@@ -82,8 +82,9 @@
     <div class=" lg:w-4/5 mx-auto py-8 " id="reviews"><h3 class="text-3xl text-black font-medium border-b-2 border-purple-300 md: ml-2">Customer reviews</h3>
       <div class="lg:flex flex-row">
       <div class="p-5  w-full ">
-       
+       {% if num_revs %}
        <div class="pt-3">
+
         {% for i in reviews %}
         <div class=" flex flex-row items-center py-2">
           
@@ -114,7 +115,9 @@
           <!-- -------------------------------------------------------Previous reviews ----------------------------------------- -->
           {% endfor %} 
         </div>
-
+        {% else %}
+        <h3 class="mb-8 text-2xl p-5 text-gray-500 font-bold">Be the first one to write a review for this product</h3>
+        {% endif %}
         
         </div>
         <div class="p-5   w-full lg:w-1/2">
