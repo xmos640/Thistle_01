@@ -105,9 +105,6 @@ def productview(request,myid):
 
 
 def cart(request):
-    
-    
-        
     return render(request,'cart.html')
 
 
@@ -223,3 +220,13 @@ def orders(request):
     
     params = {'allOrders':allOrders,'count':count}
     return render(request, 'orders.html', params)
+
+
+def orderview(request,myid):
+    order = Orders.objects.filter(payment_ref=myid).values()[0]
+    items = (json.loads(order['items_json']))
+    order['items_json']=items.values()
+    params = {'order':order}
+    return render(request, 'orderview.html', params)
+    
+

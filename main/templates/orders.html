@@ -1,16 +1,18 @@
 {% extends 'basic.html' %}
 {% block title %} Orders-Thistle {% endblock %}
   {% block body %}
+  <main class="w-full min-h-[33vh] p-4 md:px-0 md:py-8" >
+    <div class="md:w-3/5 mx-auto flex flex-col" style="min-height: 400px;">
+      <h1 class="text-3xl border-b-2 mb-4 border-purple-300 p-2 " >Your Orders</h1>
   {% if allOrders %}
-  <main class="w-full min-h-[33vh] p-4 md:px-0 md:py-8">
-    <div class="md:w-3/5 mx-auto flex flex-col">
-      <h1 class="text-3xl border-b-2 mb-4 border-purple-300 p-2">Your Orders</h1>
+
       <!-- This is an order -->
       {% for i in allOrders %}
+    
       <div class="flex items-center bg-white rounded shadow-md mb-4 p-4">
   
         <div class="w-3/5">
-          <a href="#"><h2 class="font-bold">Ordered items: {{i.number_of_items}}</a></h2>
+          <a href="/orders/order-id:gikud781{{i.payment_ref}}"><h2 class="font-bold">Ordered items: {{i.number_of_items}}</a></h2>
           <p class="text-gray-600">Placed {{i.timestamp}}</p>
         </div>
         
@@ -46,9 +48,11 @@
         
         
       </div>
+    </a>
       {% endfor %}
       {% else %}
-      This is an error
+      <h3 class="mb-8 text-2xl p-5 text-gray-500 font-bold">There are no orders placed by you as of now, please head to <a href="/cart" class="text-blue-400">your cart</a> or <a href="/" class="text-blue-400">continue shopping</a></h3>
+      
   {% endif %}
       <!-- This is another order -->
       
