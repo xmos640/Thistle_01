@@ -93,10 +93,26 @@ class Orders(models.Model):
     def __str__(self): 
         return str(self.name + str(self.amount))
     
+
+
+
+    
 class announcement(models.Model):
     text= models.CharField(max_length=5000,default="")
     active = models.BooleanField(default=True)
     def __str__(self): 
         return self.text
+    
+
+class Contact(models.Model):
+    name = models.CharField(max_length=5000,default="")
+    email = models.CharField(max_length=5000,default="")
+    subject = models.CharField(max_length=5000,default="")
+    msg = models.CharField(max_length=5000,default="")
+
+    def __str__(self):
+        return str(self.name  +"  " + self.subject)
+     
+    
 
     

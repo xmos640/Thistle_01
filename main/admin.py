@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Product,prod_images,Review,CouponCode,Orders,announcement
+from .models import Product,prod_images,Review,CouponCode,Orders,announcement,Contact
 
 
 class PostProdImage(admin.StackedInline):
@@ -29,6 +29,9 @@ class orderAdmin(admin.ModelAdmin):
     pass
 @admin.register(announcement)
 class annoAdmin(admin.ModelAdmin):
+    pass
+@admin.register(Contact)
+class contAdmin(admin.ModelAdmin):
     pass
 
 

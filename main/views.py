@@ -1,10 +1,12 @@
 from django.shortcuts import render,redirect
-from .models import Product,prod_images,Review,CouponCode,Orders,announcement
+from .models import Product,prod_images,Review,CouponCode,Orders,announcement,Contact
 from django.contrib.auth.models import User
 from django.contrib.auth  import logout
 import requests
 from datetime import date,datetime,timedelta
 import json
+
+
 
 # Create your views here.
 try:
@@ -84,6 +86,7 @@ def productview(request,myid):
         user_review=False
     
     # calculate reviews
+   
     total = 0
     ratings= 0
     for review in this_reviews:
@@ -266,5 +269,19 @@ def categoryview(request,category):
     
 
     return render(request,'category.html',params)
+
+
+def contact(request):
+    
+    if  request.method == "POST":
+        subject =  request.POST.get('subject', '')
+        name =  request.POST.get('name', '')
+        email =  request.POST.get('email', '')
+        msg =  request.POST.get('message', '')
+        contact=Contact(name=name,email=email,subject=subject,msg=msg)
+        contact.save()
+    
+    return render(request, 'contact.html')
+
     
 
