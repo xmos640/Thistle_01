@@ -97,7 +97,7 @@
             totalMrp = totalMrp + qty*  mrp
             
             if (qty!==0){
-           $('#items').append(`<div class="flex items-center mb-2 p-4 bg-white shadow-md rounded"><div class="w-1/5 "><img src="${img}" alt="Product image"></div><div class="pl-2 w-2/5"><h2 class="font-bold">${name}</h2><p class="text-gray-600">${category}</p></div><div class="w-1/5 flex justify-center font-semibold">${qty}</div><div class="w-1/5 flex justify-center"><p class="font-bold cost"><span> &#8377</span>
+           $('#items').append(`<div class="flex items-center mb-2 p-4 bg-white shadow-md rounded"><div class="w-1/5 "><a href="/products/${prod_id}"><img src="${img}" alt="Product image"></div><div class="pl-2 w-2/5"><h2 class="font-bold">${name}</h2><p class="text-gray-600">${category}</p></a></div><div class="w-1/5 flex justify-center font-semibold">${qty}</div><div class="w-1/5 flex justify-center"><p class="font-bold cost"><span> &#8377</span>
             <span id='price'>${price*qty}</span>
             </p></div></div>`);
             }

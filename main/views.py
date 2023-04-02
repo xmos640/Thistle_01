@@ -272,7 +272,7 @@ def categoryview(request,category):
 
 
 def contact(request):
-    
+    thanks=0
     if  request.method == "POST":
         subject =  request.POST.get('subject', '')
         name =  request.POST.get('name', '')
@@ -280,8 +280,10 @@ def contact(request):
         msg =  request.POST.get('message', '')
         contact=Contact(name=name,email=email,subject=subject,msg=msg)
         contact.save()
+        thanks=1
     
-    return render(request, 'contact.html')
+    
+    return render(request, 'contact.html',{'announcement':announcement1,'thanks':thanks})
 
     
 

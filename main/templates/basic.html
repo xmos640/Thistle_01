@@ -23,22 +23,20 @@
    }
    {% endblock %}
 </style>
-<body class="bg-purple-100 ">
+<body class="bg-fuchsia-50">
 
   <!---------------------------------------------------- Header ------------------------------------------------------------>
 
  <header class="text-white  body-font ">
-        <div class="w-full bg-purple-900 flex flex-wrap flex-col md:flex-row items-center border-b-2 border-purple-800">
+        <div class="w-full bg-black flex flex-wrap flex-col md:flex-row items-center border-b-2 border-gray-800">
 
 
 
 
 
          <div class=" w-full p-3 flex flex-nowrap ">
-          <a class="flex title-font font-medium items-center text-purple-100 ml-1 md:mb-0" href="/">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-            </svg>
+          <a class="flex title-font font-medium items-center text-gray-100 ml-1 md:mb-0" href="/">
+            
             <span class="ml-3 text-2xl font-bold font-mono">Thistle</span>
           </a>
           <div class="ml-auto flex items-center relative">
@@ -46,10 +44,10 @@
           </button></a>
           {% if user.is_authenticated%}
           <button class=" border-0 md:hidden px-3 focus:outline-none hover:scale-110 rounded text-base md:mt-0 transition ease-linear duration-500 menu"><i class="fa-solid fa-bars fa-lg"></i></button>
-          <div class="flex md:flex-row flex-col gap-x-5 md:static  md:w-fit w-36 absolute right-[-12px] top-[130%] bg-purple-900 md:p-0 p-4  md:border-none border-2 border-purple-700 account md:flex gap-y-3 z-10 hidden">
-            <div><a href="/orders" ><button class="hover:scale-110  transition ease-linear duration-300 ">Orders</button></a></div>
-            <div><a href="/contact" ><button class="hover:scale-110 transition ease-linear duration-300" > Contact us</button></a></div>
-            <div><a href="/logout"><button class="hover:scale-110 transition ease-linear duration-300"> Log Out </button></a></div>
+          <div class="flex md:flex-row flex-col gap-x-5 md:static  md:w-fit w-36 absolute right-[-12px] top-[130%] bg-black md:p-0 p-4  md:border-none border-2 border-gray-700 account md:flex gap-y-3 z-10 hidden">
+            <div><a href="/orders" ><button class="hover:scale-110  transition ease-linear duration-300 "><i class="fa-solid fa-truck-fast pr-2 md:hidden"></i>Orders</button></a></div>
+            <div><a href="/contact" ><button class="hover:scale-110 transition ease-linear duration-300" ><i class="fa-solid fa-message pr-2 md:hidden"></i> Contact us</button></a></div>
+            <div><a href="/logout"><button class="hover:scale-110 transition ease-linear duration-300"><i class="fa-solid fa-right-from-bracket pr-2 md:hidden"></i> Log Out </button></a></div>
           </div>
           {% else %}
           {% csrf_token %}
@@ -60,67 +58,67 @@
           </div>
          </div>
         </div>
-        <nav class="md:ml-auto bg-purple-900 flex flex-wrap flex-row md:opacity-100  md:mt-0 nav text-base overflow-hidden items-center md:justify-evenly justify-center ">
+        <nav class="md:ml-auto bg-black flex flex-wrap flex-row md:opacity-100  md:mt-0 nav text-base overflow-hidden items-center md:justify-evenly justify-center ">
           <a href='/categories/bodyoils' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">BODY OILS</a>
           <a href= '/categories/bodywash' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">BODY WASH</a>
-          <a href= '/categories/category3' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">CATEGORY 3</a>
-          <a href= '/categories/category4' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">CATEGORY 4</a>
+          <a href= '/categories/category3' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">WASH</a>
+          <a href= '/categories/category4' class="md:mr-5 hover:scale-110 p-2 transition ease-out delay-150 duration-500">OILS</a>
         </nav>
-        <div class="bg-purple-700 text-center p-2 w-full uppercase font-bold "><span class="animate-pulse text-yellow-200">{{announcement.text}}</span></div>
+        <div class="bg-gray-800 text-center p-2 w-full uppercase font-bold "><span class="animate-pulse text-blue-100">{{announcement.text}}</span></div>
       </header>
       
 
   
       {% block body %}
       {% endblock %}
-     <footer class="text-gray-600 bg-purple-200 body-font">
+     <footer class="text-white bg-gray-800 body-font">
         <div class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
           <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-            <a class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
+            <a class="flex title-font font-medium items-center md:justify-start justify-center text-white">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
                 <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
               </svg>
               <span class="ml-3 text-xl">Tailblocks</span>
             </a>
-            <p class="mt-2 text-sm text-gray-500">Air plant banjo lyft occupy retro adaptogen indego</p>
+            <p class="mt-2 text-sm">Air plant banjo lyft occupy retro adaptogen indego</p>
           </div>
           <div class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center">
             <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+              <h2 class="title-font font-medium text-white tracking-widest text-sm mb-3">CATEGORIES</h2>
               <nav class="list-none mb-10">
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">First Link</a>
+                  <a class="">First Link</a>
                 </li>
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">Second Link</a>
+                  <a class="">Second Link</a>
                 </li>
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">Third Link</a>
+                  <a class="">Third Link</a>
                 </li>
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                  <a class="">Fourth Link</a>
                 </li>
               </nav>
             </div>
             <div class="lg:w-1/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CATEGORIES</h2>
+              <h2 class="title-font font-medium tracking-widest text-sm mb-3">CATEGORIES</h2>
               <nav class="list-none mb-10">
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">First Link</a>
+                  <a class="">First Link</a>
                 </li>
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">Second Link</a>
+                  <a class="">Second Link</a>
                 </li>
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">Third Link</a>
+                  <a class="">Third Link</a>
                 </li>
                 <li>
-                  <a class="text-gray-600 hover:text-gray-800">Fourth Link</a>
+                  <a class="">Fourth Link</a>
                 </li>
               </nav>
             </div>
             <div class="lg:w-2/4 md:w-1/2 w-full px-4">
-              <h2 class="title-font font-medium text-gray-900 tracking-widest text-sm mb-3">CONTACT US</h2>
+              <h2 class="title-font font-medium tracking-widest text-sm mb-3">CONTACT US</h2>
               <nav class="list-none mb-10">
                 <li>
                   Email - osiajewellery7@gmail.com
@@ -159,7 +157,7 @@
             
           </div>
         </div>
-        <div class="bg-purple-700">
+        <div class="bg-black">
           <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
             <p class="text-white text-sm text-center sm:text-left">© 2023 Thistle —
               <a href="https://twitter.com/640Xmos" rel="noopener noreferrer" class="text-white ml-1" target="_blank">@xmos640</a>
