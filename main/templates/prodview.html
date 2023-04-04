@@ -34,11 +34,11 @@
               {% for i in stars %}
               {% if i %}
               
-              <i class="fa-solid fa-star text-red-500"></i>
+              <i class="fa-solid fa-star text-blue-600"></i>
               
               {% else %}
               
-              <i class="fa-regular fa-star text-red-500"></i>
+              <i class="fa-regular fa-star text-blue-600"></i>
               
               {% endif %}
               {% endfor %}
@@ -69,7 +69,8 @@
            </div>
            <div class="flex flex-row items-center">
             {% if product.availabilty %}
-            <span id="atc" class="divpr"> <button class=" cart flex  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mt-5 rounded">Add to cart</button></span>
+            <span id="atc" class="divpr"> <button class=" cart flex  text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mt-5 rounded">Add to cart</button></span> 
+            <a href="/cart"><span id = "gtc" class=" flex hidden text-white bg-indigo-500 mx-4 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 mt-5 rounded"> <i class="fa-solid fa-bag-shopping fa-lg py-3 pr-3"></i> Go to cart</span></a>
             {% else %}
             <button disabled class=" cart flex mt-5 ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Out of stock</button>
             {% endif %}
@@ -97,11 +98,11 @@
                     {% for j in '12345'|make_list %}
                     {% if forloop.counter <= i.rate %}
 
-                    <i class="fa-solid fa-star text-red-500 " style="transform: scale(0.8);"></i>
+                    <i class="fa-solid fa-star text-blue-600 " style="transform: scale(0.8);"></i>
               
                     {% else %}
                     
-                    <i class="fa-regular fa-star text-red-500" style="transform: scale(0.8);"></i>
+                    <i class="fa-regular fa-star text-blue-600" style="transform: scale(0.8);"></i>
                     
                     {% endif %}
                     {% endfor %}
@@ -138,11 +139,11 @@
           <textarea placeholder="Your Review" name="review" class="border-2 border-purple-300 w-full text-md p-2" rows="4"></textarea>
           
           <div class="py-3"> YOUR RATING:&nbsp 
-            <input type="radio" name="rating" id="star1" value="1" class="hidden"><label for="star1"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-            <input type="radio" name="rating" id="star2" value="2" class="hidden"><label for="star2"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-            <input type="radio" name="rating" id="star3" value="3" class="hidden"><label for="star3"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-            <input type="radio" name="rating" id="star4" value="4" class="hidden"><label for="star4"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
-            <input type="radio" name="rating" id="star5" value="5" class="hidden"><label for="star5"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-red-500 rate"></i></label>
+            <input type="radio" name="rating" id="star1" value="1" class="hidden"><label for="star1"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-blue-600 rate"></i></label>
+            <input type="radio" name="rating" id="star2" value="2" class="hidden"><label for="star2"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-blue-600 rate"></i></label>
+            <input type="radio" name="rating" id="star3" value="3" class="hidden"><label for="star3"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-blue-600 rate"></i></label>
+            <input type="radio" name="rating" id="star4" value="4" class="hidden"><label for="star4"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-blue-600 rate"></i></label>
+            <input type="radio" name="rating" id="star5" value="5" class="hidden"><label for="star5"><i class="fa-solid fa-star cursor-pointer text-gray-600 hover:text-blue-600 rate"></i></label>
           </div>
       
             <button type="submit" class="bg-indigo-500 text-white px-5 py-2 border-2 rounded hover:bg-indigo-600 cursor-pointer">Submit review</button>
@@ -246,6 +247,7 @@ $('.cart').click(function() {
     var idstr = document.getElementById('prid').value;
     console.log(idstr);
     console.log(thistle_cart);
+    
 
 
 
@@ -280,7 +282,8 @@ function updateCart(thistle_cart) {
     if (thistle_cart[idstr][0]!==0){
                 console.log(item)
             document.getElementById('atc').innerHTML = "<div class='cart'><button id='minus' class=' minus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'>-</button> <span id='val' class=' font-bold p-3 mx-2 border text-center w-8'>" + thistle_cart[idstr][0] + "</span> <button id='plus' class='plus font-bold text-white bg-indigo-500 border-0 pb-1 px-2 focus:outline-none hover:bg-indigo-600 mt-5 rounded'   > + </button> </div>";
-            }
+            var gtc = document.getElementById('gtc').classList.remove("hidden") 
+          }
             else {
                 delete thistle_cart[item];
 
