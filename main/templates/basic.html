@@ -51,7 +51,7 @@
           </div>
           {% else %}
           {% csrf_token %}
-          <div><a href="/contact" ><button class="hover:scale-110 transition ease-linear duration-300" > Contact us</button></a></div>
+          
           <a href="{% provider_login_url "google" %}"><button class=" border-0  px-3 focus:outline-none hover:scale-110 rounded text-base md:mt-0 transition ease-out delay-150 duration-500">Log In
           </button></a>
           {% endif %}

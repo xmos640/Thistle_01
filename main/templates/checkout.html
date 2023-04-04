@@ -8,7 +8,7 @@
   #utr::-webkit-inner-spin-button {
     -webkit-appearance: none;
   }
-  
+
 {% endblock %}
 {% block body %}
 
@@ -21,9 +21,9 @@
         <h2 class="text-lg font-bold mb-4">Order Summary</h2>
         <!-- This is an item in the order summary -->
         <div class="flex justify-between items-center mb-2">
-          
+
         </div>
-  
+
         <div class="flex justify-between items-center mb-2">
           <p class="text-gray-600">Cart Value</p>
           <p class="font-bold"><span> &#8377</span>
@@ -60,11 +60,11 @@
         <div class="prompt mt-2 "></div>
       </div>
       <div class="bg-gray-300 rounded p-4 mb-4 shadow-lg">
-        <div class="pb-2 text-gray-600">Make Payment of  &#8377<span id="totalPrice1" class="font-bold"></span> to this UPI Id and fill the given form</div>
+        <div class="pb-2 text-gray-600">Make Payment of  &#8377<span id="totalPrice1" class="font-bold total"></span> to this UPI Id and fill the given form</div>
         <img src="/media/QR_code.jpg" alt="QR code" >
       </div>
       </div>
-  
+
       <!-- This is the billing and shipping information section -->
       <div class="flex flex-col md:w-[65%] bg-gray-100 p-4 mb-4 shadow-md">
         <h2 class="text-lg font-bold mb-6">Billing and Shipping Information</h2>
@@ -80,7 +80,7 @@
             <input type="text" id="phone" name="phone" class="border p-3" placeholder="Phone Number" maxlength="13" minlength="10" required>
           </div>
           <div class="flex flex-col mb-8">
-            
+
             <textarea rows="3" id="address" name="address" class="border p-3" placeholder="Address" required></textarea>
           </div>
           <div class="flex flex-col mb-8">
@@ -102,16 +102,16 @@
           <input type="hidden" name="itemsJson" id="itemsJson">
           <div class="flex flex-col mb-8">
             <button type="submit" onclick="clearCart()" class="py-4 px-2 w-full bg-indigo-700 hover:bg-indigo-500 rounded text-white font-bold cursor-pointer shadow-md shadow-gray-500 hover:shadow-none" name="submit">submit</button>
-            
+
           </div>
         </form>
       </div>
       </div>
     </main>
-  
-    
-                          
-                   
+
+
+
+
 
 {% endblock %}
 
@@ -129,7 +129,7 @@
     }
     console.log(cart);
     var sum = 0;
-    
+
     var shipping = parseInt(document.getElementById('shipping').innerHTML);
     totalPrice = 0;
     var totalMrp = 0;
@@ -149,9 +149,9 @@
             totalMrp = totalMrp + qty* mrp
           }
     }
-    
+
     document.getElementById('totalPrice').innerHTML = totalPrice+shipping;
-    document.getElementById('totalPrice1').innerHTML = totalPrice+shipping;
+    // document.getElementById('totalPrice1').innerHTML = totalPrice+shipping;
     document.getElementById('total_mrp').innerHTML = totalMrp;
     let discounted = totalMrp-subtotal;
 
@@ -160,9 +160,9 @@
 
 document.getElementById('discounted').innerHTML = discounted;
 $('#itemsJson').val(JSON.stringify(cart));
-   
-    
-    
+
+
+
       //JS for Coupons
       let code=document.querySelector("#code");
       let apply=document.querySelector(".apply-coupon");
@@ -178,9 +178,9 @@ $('#itemsJson').val(JSON.stringify(cart));
         {{i.coupon}}:{
             id:'{{i.id}}',
             discount:'{{i.discount}}',
-            can_be_used:'{{i.can_be_used}}'     
+            can_be_used:'{{i.can_be_used}}'
         },
-    
+
        {% endfor %}
       }
       let discountedValue=0
@@ -188,7 +188,7 @@ $('#itemsJson').val(JSON.stringify(cart));
       amount.value=(totalPrice+shipping-discountedValue).toFixed(2)
       apply.addEventListener("click",()=>{
        let value=code.value
-       
+
        if (coupons_available.hasOwnProperty(value) && coupons_available[value].can_be_used==='True'){
          coupon.classList.remove("hidden")
          discountedValue=totalPrice*(coupons_available[value].discount/100)
@@ -204,6 +204,7 @@ $('#itemsJson').val(JSON.stringify(cart));
        }
        total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
        amount.value=(totalPrice+shipping-discountedValue).toFixed(2)
+       document.getElementById('totalPrice1').innerText=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
       })
 
       function clearCart() {
@@ -214,14 +215,15 @@ $('#itemsJson').val(JSON.stringify(cart));
 
 }
 
-      
-    //   total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
 
-     
-     
-     
-     
-     
+    total.textContent=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
+    document.getElementById('totalPrice1').innerText=`${(totalPrice+shipping-discountedValue).toFixed(2)}`
+
+
+
+
+
+
 
   </script>
   {% endblock %}
