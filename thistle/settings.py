@@ -28,8 +28,11 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['thistle01-production.up.railway.app','127.0.0.1']
 # Application definition
-
-# CSRF_TRUSTED_ORIGINS = ['https://thistle01-production.up.railway.app/','https://*.127.0.0.1']
+CORS_ALLOWED_ORIGINS = [
+    "https://thistle01-production.up.railway.app",
+    "http://127.0.0.1:8000",
+]
+CSRF_TRUSTED_ORIGINS = ['https://thistle01-production.up.railway.app','https://*.127.0.0.1:8000']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
