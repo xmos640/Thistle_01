@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ys&7bvgu!#yt%2-#z^9dofr_th#c-d(v!e6f6&y#4on2@#1c=!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['thistle01-production.up.railway.app','127.0.0.1']
+ALLOWED_HOSTS = ['thistle01-production.up.railway.app','xmos640.pythonanywhere.com','127.0.0.1']
 # Application definition
 CORS_ALLOWED_ORIGINS = [
     "https://thistle01-production.up.railway.app",
